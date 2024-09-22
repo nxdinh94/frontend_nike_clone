@@ -1,10 +1,15 @@
 import 'package:fe_nike/core/constants/colors.dart';
 import 'package:fe_nike/core/constants/font_size.dart';
 import 'package:fe_nike/core/constants/padding.dart';
-import 'package:fe_nike/features/home/slide_products/presentation/widgets/items.dart';
+import 'package:fe_nike/features/home/products/domain/entites/products.dart';
+import 'package:fe_nike/features/home/products/presentation/bloc/product_bloc.dart';
+import 'package:fe_nike/features/home/products/presentation/widgets/items.dart';
 import 'package:fe_nike/helper/custom_navigation_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../features/home/products/presentation/bloc/product_state.dart';
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -17,13 +22,13 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         actions: [
-          Padding(
+                Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             child: GestureDetector(
-              onTap: () {
+                onTap: () {
 
-              },
-              child: const Icon(CupertinoIcons.search, size: 28)
+                },
+                child: const Icon(CupertinoIcons.search, size: 28)
             ),
           )
         ],
@@ -85,13 +90,27 @@ class HomeScreen extends StatelessWidget {
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.symmetric(horizontal: 24),
-            child: Row(
-              children: List.generate(10, (int index){
-                return Padding(
-                  padding: index != 9? rightPadding: nonePadding,
-                  child: Items(),
-                );
-              }),
+            physics: BouncingScrollPhysics(),
+            child: BlocBuilder<ProductBloc, ProductState>(
+              builder: (context,  state) {
+                if(state is ProductLoading){
+                  return const Center(child: CupertinoActivityIndicator());
+                }
+                if (state is ProductError) {
+                  return const Center(child: Icon(Icons.refresh));
+                }
+                if(state is ProductDone){
+                  return Row(
+                    children: List.generate(state.product!.length.toInt(), (int index){
+                      return Padding(
+                        padding: index != state.product!.length - 1? rightPadding: nonePadding,
+                        child: Items(productEntity: state.product![index] ,),
+                      );
+                    })
+                  );
+                }
+                return const SizedBox();
+              }
             ),
           )
         ],

@@ -1,4 +1,4 @@
-import 'package:fe_nike/features/home/slide_products/presentation/pages/view_all.dart';
+import 'package:fe_nike/features/home/products/presentation/pages/view_all.dart';
 import 'package:fe_nike/screens/bag.dart';
 import 'package:fe_nike/screens/favourite.dart';
 import 'package:fe_nike/screens/home.dart';

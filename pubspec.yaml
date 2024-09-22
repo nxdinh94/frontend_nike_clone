@@ -12,10 +12,20 @@ dependencies:
   go_router: ^14.2.7
   flutter_svg: ^2.0.10+1
   get_it: ^7.7.0
+  dio: ^5.7.0
+  equatable: ^2.0.0
+  flutter_bloc: ^8.1.6
+  retrofit: ^4.4.0
+  logger: ^2.4.0  # for logging purpose
+  json_annotation: ^4.9.0
+  flutter_format_money_vietnam: ^0.0.2
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^4.0.0
+  retrofit_generator: '>=8.0.0 <10.0.0' # for Dart 3.3 use ^9.0.0
+  build_runner: ^2.3.3
+  json_serializable: ^6.8.0
 
 
 flutter:
