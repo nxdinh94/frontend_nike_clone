@@ -3,6 +3,7 @@ import 'package:fe_nike/core/constants/font_size.dart';
 import 'package:fe_nike/core/constants/padding.dart';
 import 'package:fe_nike/features/home/products/domain/entites/products.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_format_money_vietnam/flutter_format_money_vietnam.dart';
 class Items extends StatefulWidget {
   final ProductEntity productEntity;
   const Items({super.key, required this.productEntity});
@@ -50,7 +51,7 @@ class _ItemsState extends State<Items> {
                       style: TextStyle(fontSize: tiny, color: colorTextGrey),
                       overflow: TextOverflow.ellipsis,
                   ),
-                  Text(widget.productEntity.price.toString(), style: TextStyle(color: colorTextBlack),),
+                  Text(widget.productEntity.price.toString().toVND(), style: TextStyle(color: colorTextBlack),),
                 ],
               ),
             ),

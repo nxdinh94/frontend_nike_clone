@@ -1,5 +1,6 @@
 import 'package:fe_nike/core/constants/colors.dart';
 import 'package:fe_nike/core/constants/font_size.dart';
+import 'package:fe_nike/features/authentication/presentation/pages/home_authen.dart';
 import 'package:fe_nike/features/home/products/presentation/bloc/product_bloc.dart';
 import 'package:fe_nike/features/home/products/presentation/bloc/product_event.dart';
 import 'package:fe_nike/injection_container.dart';
@@ -15,7 +16,7 @@ Future<void> main() async {
     statusBarColor: Colors.transparent,
     statusBarIconBrightness: Brightness.dark
   ));
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -34,9 +35,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         home: Container(
           color: Colors.white,
-          child: SafeArea(
-            child: CustomRouter(),
-          ),
+          child: HomeAuthen(),
         ),
         theme: ThemeData(
           useMaterial3: true
@@ -55,9 +54,11 @@ class CustomRouter extends StatelessWidget {
       routerConfig: CustomNavigationHelper.router,
       debugShowCheckedModeBanner: false,
       builder: (context, router) {
-        return Scaffold(
-          resizeToAvoidBottomInset: false,
-          body: router!,
+        return SafeArea(
+          child: Scaffold(
+            resizeToAvoidBottomInset: false,
+            body: router!,
+          ),
         );
       },
     );

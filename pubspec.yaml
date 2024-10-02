@@ -35,6 +35,7 @@ flutter:
   assets:
      - assets/shoes/
      - assets/sport_swear/
+     - assets/background/
      - assets/svg/
 
   # An image asset can refer to one or more resolution-specific "variants", see
