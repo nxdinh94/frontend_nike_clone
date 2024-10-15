@@ -1,21 +1,24 @@
 import 'package:fe_nike/core/constants/colors.dart';
 import 'package:fe_nike/core/constants/font_size.dart';
-import 'package:fe_nike/features/authentication/presentation/pages/home_authen.dart';
+import 'package:fe_nike/features/authentication/presentation/bloc/authentication_bloc.dart';
+import 'package:fe_nike/features/authentication/presentation/pages/home_auth.dart';
 import 'package:fe_nike/features/home/products/presentation/bloc/product_bloc.dart';
 import 'package:fe_nike/features/home/products/presentation/bloc/product_event.dart';
 import 'package:fe_nike/injection_container.dart';
+import 'package:fe_nike/util/auth_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:fe_nike/helper/custom_navigation_helper.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 Future<void> main() async {
-  await setupLocator();
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  await setupLocator();
   CustomNavigationHelper.instance;
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
-    statusBarIconBrightness: Brightness.dark
+    statusBarIconBrightness: Brightness.light
   ));
+  print('isLogin ${AuthManager.isLogin()}');
   runApp(MyApp());
 }
 
@@ -29,13 +32,16 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider<ProductBloc>(
           create: (BuildContext context) => locator()..add(const GetProduct() )
+        ),
+        BlocProvider<AuthBloc>(
+          create: (BuildContext context) => locator()
         )
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         home: Container(
           color: Colors.white,
-          child: HomeAuthen(),
+          child: AuthManager.isLogin() ?  CustomRouter() :  HomeAuth() ,
         ),
         theme: ThemeData(
           useMaterial3: true

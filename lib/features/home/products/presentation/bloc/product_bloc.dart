@@ -11,7 +11,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState>{
   ProductBloc(this._getProductUseCase) :super(const ProductLoading()){
     on<GetProduct>(onGetProduct);
   }
-  void onGetProduct(ProductEvent event, Emitter<ProductState> emit)async{
+  Future<void> onGetProduct(ProductEvent event, Emitter<ProductState> emit)async{
     final dataState = await _getProductUseCase();
     if(dataState is DataSuccess){
       emit(ProductDone(dataState.data!));

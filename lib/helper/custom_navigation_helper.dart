@@ -1,3 +1,4 @@
+import 'package:fe_nike/features/authentication/presentation/pages/home_auth.dart';
 import 'package:fe_nike/features/home/products/presentation/pages/view_all.dart';
 import 'package:fe_nike/screens/bag.dart';
 import 'package:fe_nike/screens/favourite.dart';
@@ -27,6 +28,8 @@ class CustomNavigationHelper {
   GlobalKey<NavigatorState>();
   static final GlobalKey<NavigatorState> profileTabNavigatorKey =
   GlobalKey<NavigatorState>();
+  static final GlobalKey<NavigatorState> authTabNavigatorKey =
+  GlobalKey<NavigatorState>();
 
   BuildContext get context => router.routerDelegate.navigatorKey.currentContext!;
 
@@ -47,6 +50,7 @@ class CustomNavigationHelper {
   //pages path
   static const String signUpPath = '/signUp';
   static const String signInPath = '/signIn';
+  static const String homeAuth = '/homeAuth';
 
   static const String viewAllSlideProductPage = 'viewAllSlideProductPagePath';
 
@@ -140,6 +144,21 @@ class CustomNavigationHelper {
               ),
             ],
           ),
+          StatefulShellBranch(
+            navigatorKey: authTabNavigatorKey,
+            routes: [
+              GoRoute(
+                path: homeAuth,
+                pageBuilder: (context, state) {
+                  return getPage(
+                    child: const HomeAuth(),
+                    state: state,
+                  );
+                },
+              ),
+            ],
+          ),
+
         ],
         pageBuilder: (
             BuildContext context,
