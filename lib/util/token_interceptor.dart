@@ -7,7 +7,7 @@ class TokenInterceptor extends Interceptor {
   Future onRequest(
       RequestOptions options,
       RequestInterceptorHandler handler,
-      ) async {
+  ) async {
     // Here you can put the token, either from preference, sqlite, etc.
     // Here is an example with Preferences
     final someToken = AuthManager.readAuth();

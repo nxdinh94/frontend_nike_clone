@@ -1,4 +1,5 @@
 import 'package:fe_nike/features/authentication/presentation/bloc/authentication_event.dart';
+import 'package:fe_nike/features/authentication/presentation/bloc/authentication_state.dart';
 import 'package:fe_nike/features/authentication/presentation/pages/home_auth.dart';
 import 'package:fe_nike/helper/custom_navigation_helper.dart';
 import 'package:fe_nike/util/auth_manager.dart';
@@ -20,9 +21,6 @@ class ProfileScreen extends StatelessWidget {
             onTap: (){
               // AuthManager.logout();
               context.read<AuthBloc>().add(AuthLogout(accessToken: AuthManager.readAuth(), refreshToken: AuthManager.readRefreshToken()));
-              Navigator.of(context, rootNavigator: true)
-                  .pushAndRemoveUntil(
-                  MaterialPageRoute(builder: (context) => HomeAuth()), (route) => false);
             },
             child: Icon(
               CupertinoIcons.arrow_right_square_fill, size: 30
@@ -30,7 +28,18 @@ class ProfileScreen extends StatelessWidget {
           )
         ],
       ),
-
+      body: BlocListener<AuthBloc, AuthState>(
+        listener: (context, state){
+          if(state is AuthInitState){
+            Navigator.of(context, rootNavigator: true)
+                .pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) => HomeAuth()), (route) => false);
+          }
+        },
+        child: Container(
+          child: SizedBox(),
+        ),
+      ),
     );
   }
 }

@@ -15,7 +15,4 @@ class LogOutUseCase extends UseCase<DataState<LogoutEntity>, BodyLogout>{
   Future<DataState<LogoutEntity>> call({BodyLogout ? params}) {
     return authRepository.logout(params!);
   }
-
-
-
 }

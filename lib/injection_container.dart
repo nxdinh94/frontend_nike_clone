@@ -21,7 +21,6 @@ Future<void> setupLocator ()async{
   // Dio
   Dio dio = Dio();
   dio.interceptors.add(TokenInterceptor()); // Add this code
-
   locator.registerLazySingleton(() => dio);
 
   locator.registerSingleton<SharedPreferences>(await SharedPreferences.getInstance());
