@@ -1,16 +1,26 @@
 import 'package:fe_nike/core/constants/font_size.dart';
 import 'package:fe_nike/core/constants/my_icons.dart';
+import 'package:fe_nike/features/home/products/domain/entites/products.dart';
 import 'package:flutter/material.dart';
 
+import '../../data/model/ProductModel.dart';
+
 class ViewAllItems extends StatefulWidget {
-  const ViewAllItems({super.key, required this.index});
-  final int index;
+  const ViewAllItems({super.key, required this.product});
+  final ProductEntity product;
   @override
   State<ViewAllItems> createState() => _ViewAllItemsState();
 }
 
 class _ViewAllItemsState extends State<ViewAllItems> {
   bool isFavourite = false;
+  String thumbnail = '';
+  @override
+  void initState() {
+    thumbnail = widget.product.imageList?[widget.product.imageList?.keys.toList().first].first['url'];
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -18,8 +28,7 @@ class _ViewAllItemsState extends State<ViewAllItems> {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.asset(
-              'assets/sport_swear/nike_sportswear_phoenix_fleece.png',
+            Image.network(thumbnail,
               height: 180,
               width: MediaQuery.of(context).size.width,
               fit: BoxFit.cover,

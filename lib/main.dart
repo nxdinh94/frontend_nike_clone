@@ -16,7 +16,8 @@ Future<void> main() async {
   CustomNavigationHelper.instance;
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
-    statusBarIconBrightness: Brightness.light
+    statusBarIconBrightness: Brightness.dark,
+    statusBarBrightness: Brightness.light
   ));
   print('isLogin ${AuthManager.isLogin()}');
   runApp(MyApp());

@@ -2,7 +2,7 @@ import 'package:fe_nike/core/constants/colors.dart';
 import 'package:fe_nike/core/constants/font_size.dart';
 import 'package:fe_nike/core/constants/padding.dart';
 import 'package:fe_nike/features/authentication/presentation/pages/email_page.dart';
-import 'package:fe_nike/features/authentication/presentation/pages/signup/password_page.dart';
+import 'package:fe_nike/features/authentication/presentation/pages/signup/password_signup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -110,7 +110,12 @@ class _HomeAuthState extends State<HomeAuth> {
                             onPressed: (){
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => const EmailPage()),
+                                MaterialPageRoute(
+                                  builder: (context) => const EmailPage(),
+                                  settings: RouteSettings(
+                                    arguments: 'signup'
+                                  )
+                                ),
                               );
                             },
                             child: Text(
@@ -125,7 +130,12 @@ class _HomeAuthState extends State<HomeAuth> {
                             onPressed: (){
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => EmailPage()),
+                                MaterialPageRoute(
+                                  builder: (context) => EmailPage(),
+                                  settings: RouteSettings(
+                                    arguments: 'signin'
+                                  )
+                                ),
                               );
                             },
                             child: Text(

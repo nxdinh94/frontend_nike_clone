@@ -5,6 +5,7 @@ import 'package:fe_nike/features/home/products/domain/entites/products.dart';
 import 'package:fe_nike/features/home/products/presentation/bloc/product_bloc.dart';
 import 'package:fe_nike/features/home/products/presentation/widgets/items.dart';
 import 'package:fe_nike/helper/custom_navigation_helper.dart';
+import 'package:fe_nike/util/auth_manager.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,7 +27,7 @@ class HomeScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             child: GestureDetector(
                 onTap: () {
-
+                  AuthManager.logout();
                 },
                 child: const Icon(CupertinoIcons.search, size: 28)
             ),
