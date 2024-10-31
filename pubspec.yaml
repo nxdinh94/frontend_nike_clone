@@ -21,6 +21,8 @@ dependencies:
   flutter_format_money_vietnam: ^0.0.2
   shared_preferences: ^2.3.2
   jwt_decoder: ^2.0.1
+  provider: ^6.1.2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

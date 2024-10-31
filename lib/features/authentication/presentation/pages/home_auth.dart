@@ -1,10 +1,9 @@
 import 'package:fe_nike/core/constants/colors.dart';
 import 'package:fe_nike/core/constants/font_size.dart';
-import 'package:fe_nike/core/constants/padding.dart';
-import 'package:fe_nike/features/authentication/presentation/pages/email_page.dart';
-import 'package:fe_nike/features/authentication/presentation/pages/signup/password_signup.dart';
+import 'package:fe_nike/helper/custom_navigation_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 
 class HomeAuth extends StatefulWidget {
   const HomeAuth({super.key});
@@ -59,107 +58,87 @@ class _HomeAuthState extends State<HomeAuth> {
             fit: BoxFit.cover
           )
       ),
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: SafeArea(
-          child: Scaffold(
-            backgroundColor: Colors.transparent,
-            body: Align(
-              alignment: Alignment.bottomLeft,
-              child: Container(
-                height: MediaQuery.of(context).size.width*0.85,
-                padding: const EdgeInsets.symmetric(vertical: 24),
-                decoration: BoxDecoration(
-                  color: Colors.transparent,
-                  // backgroundBlendMode: BlendMode.darken,
-                  boxShadow:  [
-                    BoxShadow(
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: Align(
+          alignment: Alignment.bottomLeft,
+          child: Container(
+            height: MediaQuery.of(context).size.width*0.85,
+            padding: const EdgeInsets.symmetric(vertical: 24),
+            decoration: BoxDecoration(
+                color: Colors.transparent,
+                // backgroundBlendMode: BlendMode.darken,
+                boxShadow:  [
+                  BoxShadow(
                       color: Colors.black87.withOpacity(0.9),
                       spreadRadius:90,
                       blurRadius: 90,
-                      offset: Offset(0, 30)
-                    ),
-                  ]
+                      offset: const Offset(0, 30)
+                  ),
+                ]
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SvgPicture.asset(
+                  'assets/svg/logo-light.svg',
+                  width: 90,
+                  height: 90,
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SvgPicture.asset(
-                      'assets/svg/logo-light.svg',
-                      width: 90,
-                      height: 90,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 10.0, top: 12, bottom: 12),
-                      child: Text(
-                        'Bringing Nike Members \nthe best products, '
+                const Padding(
+                  padding: EdgeInsets.only(left: 10.0, top: 12, bottom: 12),
+                  child: Text(
+                    'Bringing Nike Members \nthe best products, '
                         'inspiration \nand stories in sports.',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: extraBigger
-                        ),
-                      ),
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: extraBigger
                     ),
-                    const SizedBox(height: 24),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 10.0),
-                      child: Row(
-                        children: [
-                          ElevatedButton(
-                            onPressed: (){
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const EmailPage(),
-                                  settings: RouteSettings(
-                                    arguments: 'signup'
-                                  )
-                                ),
-                              );
-                            },
-                            child: Text(
-                              'Sign Up',
-                              style: TextStyle(fontSize: normal, color: colorTextBlack)),
-                            style: ElevatedButton.styleFrom(
-                              padding: EdgeInsets.symmetric(vertical: 12, horizontal: 24)
-                            )
-                          ),
-                          const SizedBox(width: 12),
-                          OutlinedButton(
-                            onPressed: (){
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => EmailPage(),
-                                  settings: RouteSettings(
-                                    arguments: 'signin'
-                                  )
-                                ),
-                              );
-                            },
-                            child: Text(
-                              'Sign In',
-                              style: TextStyle(fontSize: normal, color: Colors.white),
-                            ),
-                            style: ElevatedButton.styleFrom(
-                              padding: EdgeInsets.symmetric(vertical: 12, horizontal: 24),
-                              side: BorderSide(
-                                color: Colors.white,
-                                width: 1
-                              )
-                            )
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
+                  ),
                 ),
-              ),
+                const SizedBox(height: 24),
+                Padding(
+                  padding: const EdgeInsets.only(left: 10.0),
+                  child: Row(
+                    children: [
+                      ElevatedButton(
+                          onPressed: (){
+                            context.go(
+                                '${CustomNavigationHelper.homeAuthPath}/${CustomNavigationHelper.signUpPath}',
+                                extra: 'signup'
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24)
+                          ),
+                          child: const Text('Sign Up', style: TextStyle(fontSize: normal, color: colorTextBlack))
+                      ),
+                      const SizedBox(width: 12),
+                      OutlinedButton(
+                          onPressed: (){
+                            context.go(
+                                '${CustomNavigationHelper.homeAuthPath}/${CustomNavigationHelper.signInPath}',
+                                extra: 'signin'
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+                              side: const BorderSide(
+                                  color: Colors.white,
+                                  width: 1
+                              )
+                          ),
+                          child: const Text('Sign In', style: TextStyle(fontSize: normal, color: Colors.white))
+                      ),
+                    ],
+                  ),
+                )
+              ],
             ),
           ),
         ),
-      ),
+      )
     );
   }
 }

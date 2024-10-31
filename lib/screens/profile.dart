@@ -3,12 +3,12 @@ import 'package:fe_nike/core/constants/font_size.dart';
 import 'package:fe_nike/core/constants/padding.dart';
 import 'package:fe_nike/features/authentication/presentation/bloc/authentication_event.dart';
 import 'package:fe_nike/features/authentication/presentation/bloc/authentication_state.dart';
-import 'package:fe_nike/features/authentication/presentation/pages/home_auth.dart';
 import 'package:fe_nike/helper/custom_navigation_helper.dart';
 import 'package:fe_nike/util/auth_manager.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import '../features/authentication/presentation/bloc/authentication_bloc.dart';
 class ProfileScreen extends StatelessWidget {
@@ -21,9 +21,7 @@ class ProfileScreen extends StatelessWidget {
       body: BlocListener<AuthBloc, AuthState>(
         listener: (context, state){
           if(state is AuthInitState){
-            Navigator.of(context, rootNavigator: true)
-                .pushAndRemoveUntil(
-                MaterialPageRoute(builder: (context) => HomeAuth()), (route) => false);
+            context.go(CustomNavigationHelper.homeAuthPath);
           }
         },
         child: Container(

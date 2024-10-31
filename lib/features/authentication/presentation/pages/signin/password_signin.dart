@@ -6,6 +6,7 @@ import 'package:fe_nike/features/authentication/presentation/widgets/action_near
 import 'package:fe_nike/features/authentication/presentation/widgets/header.dart';
 import 'package:fe_nike/features/authentication/presentation/widgets/jump_man_and_nike_logo.dart';
 import 'package:fe_nike/features/authentication/presentation/widgets/subtitle.dart';
+import 'package:fe_nike/helper/custom_navigation_helper.dart';
 import 'package:fe_nike/injection_container.dart';
 import 'package:fe_nike/main.dart';
 import 'package:fe_nike/screens/home.dart';
@@ -13,6 +14,7 @@ import 'package:fe_nike/util/auth_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../../core/common/custom_back_page_button.dart';
 import '../../../../../core/constants/colors.dart';
@@ -48,7 +50,7 @@ class _PasswordSigninState extends State<PasswordSignin> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        leading: CustomBackPageButton(myfun: ()=> Navigator.pop(context) ),
+        leading: CustomBackPageButton( ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(24.0),
@@ -124,13 +126,7 @@ class _PasswordSigninState extends State<PasswordSignin> {
                 listener: (context, state) {
                   if (state is AuthSuccessState) {
                     // Hiển thị CircularProgressIndicator trong 3 giây
-                    Future.delayed(Duration(seconds: 3), () {
-                      Navigator.pushAndRemoveUntil<void>(
-                        context,
-                        MaterialPageRoute<void>(builder: (BuildContext context) => const CustomRouter()),
-                        ModalRoute.withName('/'),
-                      );
-                    });
+                    context.go(CustomNavigationHelper.homePath);
                   }
                 },
                 child: BlocBuilder<AuthBloc, AuthState>(

@@ -1,4 +1,7 @@
+import 'package:fe_nike/features/authentication/presentation/pages/email_page.dart';
 import 'package:fe_nike/features/authentication/presentation/pages/home_auth.dart';
+import 'package:fe_nike/features/authentication/presentation/pages/signin/password_signin.dart';
+import 'package:fe_nike/features/authentication/presentation/pages/signup/password_signup.dart';
 import 'package:fe_nike/features/home/products/presentation/pages/view_all.dart';
 import 'package:fe_nike/screens/bag.dart';
 import 'package:fe_nike/screens/favourite.dart';
@@ -10,26 +13,17 @@ import 'package:go_router/go_router.dart';
 import '../util/my_bottom_navigation_bar.dart';
 
 class CustomNavigationHelper {
-  static final CustomNavigationHelper _instance = CustomNavigationHelper._internal();
 
-  static CustomNavigationHelper get instance => _instance;
 
   static late final GoRouter router;
 
-  static final GlobalKey<NavigatorState> parentNavigatorKey =
-  GlobalKey<NavigatorState>();
-  static final GlobalKey<NavigatorState> homeTabNavigatorKey =
-  GlobalKey<NavigatorState>();
-  static final GlobalKey<NavigatorState> shopTabNavigatorKey =
-  GlobalKey<NavigatorState>();
-  static final GlobalKey<NavigatorState> favoriteTabNavigatorKey =
-  GlobalKey<NavigatorState>();
-  static final GlobalKey<NavigatorState> bagTabNavigatorKey =
-  GlobalKey<NavigatorState>();
-  static final GlobalKey<NavigatorState> profileTabNavigatorKey =
-  GlobalKey<NavigatorState>();
-  static final GlobalKey<NavigatorState> authTabNavigatorKey =
-  GlobalKey<NavigatorState>();
+  static final GlobalKey<NavigatorState> parentNavigatorKey = GlobalKey<NavigatorState>();
+  static final GlobalKey<NavigatorState> homeTabNavigatorKey = GlobalKey<NavigatorState>();
+  static final GlobalKey<NavigatorState> shopTabNavigatorKey = GlobalKey<NavigatorState>();
+  static final GlobalKey<NavigatorState> favoriteTabNavigatorKey = GlobalKey<NavigatorState>();
+  static final GlobalKey<NavigatorState> bagTabNavigatorKey = GlobalKey<NavigatorState>();
+  static final GlobalKey<NavigatorState> profileTabNavigatorKey = GlobalKey<NavigatorState>();
+  static final GlobalKey<NavigatorState> authTabNavigatorKey = GlobalKey<NavigatorState>();
 
   BuildContext get context => router.routerDelegate.navigatorKey.currentContext!;
 
@@ -37,28 +31,34 @@ class CustomNavigationHelper {
 
   GoRouteInformationParser get routeInformationParser => router.routeInformationParser;
 
-
   static const String rootDetailPath = '/rootDetail';
 
-  //tab
+  // Tab paths
   static const String homePath = '/home';
   static const String shopPath = '/shop';
   static const String favouritePath = '/favourite';
   static const String bagPath= '/bag';
   static const String profilePath = '/profile';
 
-  //pages path
-  static const String signUpPath = '/signUp';
-  static const String signInPath = '/signIn';
-  static const String homeAuth = '/homeAuth';
+  // Page paths
+  static const String homeAuthPath = '/homeAuth';
+  static const String signUpPath = 'signUp';
+  static const String signInPath = 'signIn';
+  static const String passwordSignInPath = 'passwordSignIn';
+  static const String passwordSignUpPath = 'passwordSignUp';
 
   static const String viewAllSlideProductPage = 'viewAllSlideProductPagePath';
 
-  factory CustomNavigationHelper() {
-    return _instance;
+
+  CustomNavigationHelper._internal();
+  static final CustomNavigationHelper _instance = CustomNavigationHelper._internal();//instance of CustomNavigatorHelper
+  static CustomNavigationHelper get instance => _instance;
+  factory CustomNavigationHelper(String initialRoute) {
+    return _instance._initialize(initialRoute);
   }
 
-  CustomNavigationHelper._internal() {
+
+  CustomNavigationHelper _initialize(String initialRoute) {
     final routes = [
       StatefulShellRoute.indexedStack(
         parentNavigatorKey: parentNavigatorKey,
@@ -67,24 +67,24 @@ class CustomNavigationHelper {
             navigatorKey: homeTabNavigatorKey,
             routes: [
               GoRoute(
-                path: homePath,
-                pageBuilder: (context, GoRouterState state) {
-                  return getPage(
-                    child: const HomeScreen(),
-                    state: state,
-                  );
-                },
-                routes: <RouteBase>[
-                  GoRoute(
-                    path: viewAllSlideProductPage,
-                    pageBuilder: (context, GoRouterState state){
-                      return getPage(
-                        child: ViewAll(),
-                        state: state
-                      );
-                    }
-                  )
-                ]
+                  path: homePath,
+                  pageBuilder: (context, GoRouterState state) {
+                    return getPage(
+                      child: const HomeScreen(),
+                      state: state,
+                    );
+                  },
+                  routes: <RouteBase>[
+                    GoRoute(
+                        path: viewAllSlideProductPage,
+                        pageBuilder: (context, GoRouterState state){
+                          return getPage(
+                              child: ViewAll(),
+                              state: state
+                          );
+                        }
+                    )
+                  ]
               ),
             ],
           ),
@@ -120,13 +120,13 @@ class CustomNavigationHelper {
             navigatorKey: bagTabNavigatorKey,
             routes: [
               GoRoute(
-                  path: bagPath,
-                  pageBuilder: (context, state) {
-                    return getPage(
-                      child: const BagScreen(),
-                      state: state,
-                    );
-                  },
+                path: bagPath,
+                pageBuilder: (context, state) {
+                  return getPage(
+                    child: const BagScreen(),
+                    state: state,
+                  );
+                },
               ),
             ],
           ),
@@ -142,23 +142,9 @@ class CustomNavigationHelper {
                   );
                 },
               ),
-            ],
-          ),
-          StatefulShellBranch(
-            navigatorKey: authTabNavigatorKey,
-            routes: [
-              GoRoute(
-                path: homeAuth,
-                pageBuilder: (context, state) {
-                  return getPage(
-                    child: const HomeAuth(),
-                    state: state,
-                  );
-                },
-              ),
-            ],
-          ),
 
+            ],
+          ),
         ],
         pageBuilder: (
             BuildContext context,
@@ -166,20 +152,95 @@ class CustomNavigationHelper {
             StatefulNavigationShell navigationShell
             ) {
           return getPage(
-            child: MyBottomNavigationBar(
-              child: navigationShell,
-            ),
+            child:  MyBottomNavigationBar(child: navigationShell), // Show it elsewhere
             state: state,
           );
         },
       ),
+      StatefulShellRoute.indexedStack(
+        parentNavigatorKey: parentNavigatorKey,
+        branches: [
+          StatefulShellBranch(
+            navigatorKey: authTabNavigatorKey,
+            routes: [
+              GoRoute(
+                path: CustomNavigationHelper.homeAuthPath,
+                pageBuilder: (context, state) {
+                  return getPage(
+                    child: const HomeAuth(),
+                    state: state,
+                  );
+                },
+                routes: <RouteBase>[
+                  GoRoute(
+                    path: CustomNavigationHelper.signInPath,
+                    pageBuilder: (context, state) {
+                      String fromRequest = state.extra as String;
+                      return getPage(
+                        child: EmailPage(fromRequest: fromRequest,),
+                        state: state,
+                      );
+                    },
+                  ),
+                  GoRoute(
+                    path: CustomNavigationHelper.signUpPath,
+                    pageBuilder: (context, state) {
+                      String fromRequest = state.extra as String;
+                      return getPage(
+                        child: EmailPage(fromRequest: fromRequest),
+                        state: state,
+                      );
+                    },
+                  ),
+                  GoRoute(
+                    path: CustomNavigationHelper.passwordSignInPath,
+                    pageBuilder: (context, state){
+                      String email = state.extra as String;
+                      return getPage(
+                        child: PasswordSignin(email: email),
+                        state: state
+                      );
+                    }
+                  ),
+                  GoRoute(
+                    path: CustomNavigationHelper.passwordSignUpPath,
+                    pageBuilder: (context, state){
+                      Map<String, dynamic> data = state.extra as Map<String, dynamic>;
+                      return getPage(
+                        child: PasswordSignup(
+                          email: data['email'],
+                          country: data['country']
+                        ),
+                        state: state
+                      );
+                    }
+                  ),
+
+                ]
+              ),
+          ],
+      )
+        ],
+        pageBuilder: (
+            BuildContext context,
+            GoRouterState state,
+            StatefulNavigationShell navigationShell
+            ) {
+          return getPage(
+            child:  navigationShell, // Show it elsewhere
+            state: state,
+          );
+        },
+
+      )
     ];
 
     router = GoRouter(
       navigatorKey: parentNavigatorKey,
-      initialLocation: homePath,
+      initialLocation: initialRoute,
       routes: routes,
     );
+    return this;
   }
 
   static Page getPage({

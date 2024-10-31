@@ -1,6 +1,7 @@
 
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
+import 'package:fe_nike/features/authentication/domain/entities/register_entity.dart';
 import 'package:fe_nike/features/authentication/domain/entities/token.dart';
 
 abstract class AuthState  extends Equatable{
@@ -24,3 +25,4 @@ class AuthErrorState extends AuthState {
 class AuthSuccessState extends AuthState {
   const AuthSuccessState(TokenEntity token): super(token: token);
 }
+class RegisterSuccessState extends AuthState {}

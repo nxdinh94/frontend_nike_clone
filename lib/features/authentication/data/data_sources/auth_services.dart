@@ -1,5 +1,6 @@
 
 import 'package:fe_nike/core/constants/queries.dart';
+import 'package:fe_nike/features/authentication/data/model/register_model.dart';
 import 'package:fe_nike/features/authentication/data/model/token_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:retrofit/retrofit.dart';
@@ -20,6 +21,12 @@ abstract class AuthServices {
   Future<HttpResponse<LogoutModel>>logout(
     @Body() BodyLogout bodyLogout,
   );
+
+  @POST('users/register')
+  Future<HttpResponse<RegisterModel>> register(
+    @Body() BodyRegister bodyRegister
+  );
+
 }
 
 @JsonSerializable()
@@ -41,4 +48,18 @@ class BodyLogout{
   final String refreshToken;
 
   Map<String, dynamic> toJson() => _$BodyLogoutToJson(this);
+}
+
+@JsonSerializable()
+class BodyRegister{
+  BodyRegister(this.email, this.name, this.password, this.dob, this.country,);
+
+  factory BodyRegister.fromJson(Map<String, dynamic> json) => _$BodyRegisterFromJson(json);
+  final String email;
+  final String name;
+  final String password;
+  final String dob;
+  final String country;
+
+  Map<String, dynamic> toJson() => _$BodyRegisterToJson(this);
 }

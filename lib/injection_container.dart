@@ -4,6 +4,7 @@ import 'package:fe_nike/features/authentication/data/repositories/auth_repositor
 import 'package:fe_nike/features/authentication/domain/repositories/auth_repository.dart';
 import 'package:fe_nike/features/authentication/domain/usecases/login.dart';
 import 'package:fe_nike/features/authentication/domain/usecases/logout.dart';
+import 'package:fe_nike/features/authentication/domain/usecases/register.dart';
 import 'package:fe_nike/features/authentication/presentation/bloc/authentication_bloc.dart';
 import 'package:fe_nike/features/home/products/data/data_sources/product_services.dart';
 import 'package:fe_nike/features/home/products/data/responsitory/product_repository_imp.dart';
@@ -26,12 +27,8 @@ Future<void> setupLocator ()async{
   locator.registerSingleton<SharedPreferences>(await SharedPreferences.getInstance());
   locator.registerSingleton<ProductServices>(ProductServices(locator()));
   locator.registerSingleton<ProductRepository>(ProductRepositoryImp(locator()));
-  locator.registerSingleton<GetProductUseCase>(
-      GetProductUseCase(locator())
-  );
-  locator.registerSingleton<ProductBloc>(
-      ProductBloc(locator())
-  );
+  locator.registerSingleton<GetProductUseCase>(GetProductUseCase(locator()));
+  locator.registerSingleton<ProductBloc>(ProductBloc(locator()));
 
 
 
@@ -39,6 +36,7 @@ Future<void> setupLocator ()async{
   locator.registerSingleton<AuthRepository>(AuthRepositoryImp(locator()));
   locator.registerSingleton<LoginUseCase>(LoginUseCase(locator()));
   locator.registerSingleton<LogOutUseCase>(LogOutUseCase(locator()));
-  locator.registerSingleton<AuthBloc>(AuthBloc(locator(), locator()));
+  locator.registerSingleton<RegisterUseCase>(RegisterUseCase(locator()));
+  locator.registerSingleton<AuthBloc>(AuthBloc(locator(), locator(), locator()));
 
 }

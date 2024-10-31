@@ -1,7 +1,6 @@
-import 'package:fe_nike/core/constants/colors.dart';
-import 'package:fe_nike/core/constants/font_size.dart';
+import 'package:fe_nike/core/constants/theme.dart';
+import 'package:fe_nike/util/theme_manager.dart';
 import 'package:fe_nike/features/authentication/presentation/bloc/authentication_bloc.dart';
-import 'package:fe_nike/features/authentication/presentation/pages/home_auth.dart';
 import 'package:fe_nike/features/home/products/presentation/bloc/product_bloc.dart';
 import 'package:fe_nike/features/home/products/presentation/bloc/product_event.dart';
 import 'package:fe_nike/injection_container.dart';
@@ -10,64 +9,99 @@ import 'package:flutter/material.dart';
 import 'package:fe_nike/helper/custom_navigation_helper.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 Future<void> main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   await setupLocator();
-  CustomNavigationHelper.instance;
+
+  // setup light mode
+  int? mode =  locator<SharedPreferences>().getInt('mode');
+  if(mode == null){
+    locator<SharedPreferences>().setInt('mode', 0);
+  }
+
+
+  if (AuthManager.isLogin()) {
+    CustomNavigationHelper(CustomNavigationHelper.homePath);
+  } else {
+    CustomNavigationHelper(CustomNavigationHelper.homeAuthPath);
+  }
+
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    statusBarColor: Colors.transparent,
+    statusBarColor: Colors.white,
     statusBarIconBrightness: Brightness.dark,
-    statusBarBrightness: Brightness.light
+    statusBarBrightness: Brightness.light,
+    systemStatusBarContrastEnforced: false
+
   ));
-  print('isLogin ${AuthManager.isLogin()}');
-  runApp(MyApp());
+
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => ThemeManager(),
+      child: const MyApp(),
+    ),
+  );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  late ThemeManager _themeManager;
+  late ThemeMode _themeMode;
+
+  @override
+  void initState() {
+    super.initState();
+    _themeManager = Provider.of<ThemeManager>(context, listen: false);
+    _themeMode = _themeManager.themeMode;
+    _themeManager.addListener(changeThemeMode);
+  }
+
+  @override
+  void dispose() {
+    _themeManager.removeListener(changeThemeMode);
+    super.dispose();
+  }
+
+  void changeThemeMode() {
+    setState(() {
+      _themeMode = _themeManager.themeMode;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider<ProductBloc>(
-          create: (BuildContext context) => locator()..add(const GetProduct() )
+          create: (BuildContext context) => locator<ProductBloc>()..add(const GetProduct()),
         ),
         BlocProvider<AuthBloc>(
-          create: (BuildContext context) => locator()
-        )
+          create: (BuildContext context) => locator<AuthBloc>(),
+        ),
       ],
-      child: MaterialApp(
+      child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
-        home: Container(
-          color: Colors.white,
-          child: AuthManager.isLogin() ?  CustomRouter() :  HomeAuth() ,
-        ),
-        theme: ThemeData(
-          useMaterial3: true
-        ),
+        themeMode: _themeMode,
+        darkTheme: darkTheme,
+        theme: lightTheme,
+        routerConfig: CustomNavigationHelper.router,
+        builder: (context, router) {
+          return SafeArea(
+            child: Scaffold(
+              resizeToAvoidBottomInset: false,
+              body: router!,
+            ),
+          );
+        },
       ),
-    );
-  }
-}
-
-class CustomRouter extends StatelessWidget {
-  const CustomRouter({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp.router(
-      routerConfig: CustomNavigationHelper.router,
-      debugShowCheckedModeBanner: false,
-      builder: (context, router) {
-        return SafeArea(
-          child: Scaffold(
-            resizeToAvoidBottomInset: false,
-            body: router!,
-          ),
-        );
-      },
     );
   }
 }
