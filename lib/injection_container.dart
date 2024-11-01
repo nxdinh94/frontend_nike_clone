@@ -11,6 +11,11 @@ import 'package:fe_nike/features/home/products/data/responsitory/product_reposit
 import 'package:fe_nike/features/home/products/domain/responsitory/product_repository.dart';
 import 'package:fe_nike/features/home/products/domain/usecases/get_product.dart';
 import 'package:fe_nike/features/home/products/presentation/bloc/product_bloc.dart';
+import 'package:fe_nike/features/profile/me/data/data_sources/me_services.dart';
+import 'package:fe_nike/features/profile/me/data/responsitory/me_repository_imp.dart';
+import 'package:fe_nike/features/profile/me/domain/responsitory/me_reponsitory.dart';
+import 'package:fe_nike/features/profile/me/domain/usecases/get_me.dart';
+import 'package:fe_nike/features/profile/me/presentation/bloc/me_bloc.dart';
 import 'package:fe_nike/util/token_interceptor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
@@ -38,5 +43,12 @@ Future<void> setupLocator ()async{
   locator.registerSingleton<LogOutUseCase>(LogOutUseCase(locator()));
   locator.registerSingleton<RegisterUseCase>(RegisterUseCase(locator()));
   locator.registerSingleton<AuthBloc>(AuthBloc(locator(), locator(), locator()));
+
+
+  //me
+  locator.registerSingleton<MeServices>(MeServices(locator()));
+  locator.registerSingleton<MeRepository>(MeRepositoryImp(locator()));
+  locator.registerSingleton<GetMeUseCases>(GetMeUseCases(locator()));
+  locator.registerSingleton<MeBloc>(MeBloc(locator()));
 
 }

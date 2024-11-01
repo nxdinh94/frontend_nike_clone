@@ -12,9 +12,11 @@ import 'package:fe_nike/features/authentication/presentation/widgets/header.dart
 import 'package:fe_nike/features/authentication/presentation/widgets/jump_man_and_nike_logo.dart';
 import 'package:fe_nike/features/authentication/presentation/widgets/note_password.dart';
 import 'package:fe_nike/features/authentication/presentation/widgets/subtitle.dart';
+import 'package:fe_nike/helper/custom_navigation_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import '../../bloc/authentication_state.dart';
 import '../../widgets/my_textfield.dart';
 
@@ -71,11 +73,7 @@ class _PasswordSignupState extends State<PasswordSignup> {
       body: BlocListener<AuthBloc, AuthState>(
         listener: (context, state){
           if(state is RegisterSuccessState){
-            Navigator.pushAndRemoveUntil<void>(
-              context,
-              MaterialPageRoute<void>(builder: (BuildContext context) => const HomeAuth()),
-              ModalRoute.withName('/'),
-            );
+            context.go(CustomNavigationHelper.homeAuthPath);
           }
         },
         child: Padding(
@@ -204,12 +202,12 @@ class _PasswordSignupState extends State<PasswordSignup> {
                   children: [
                     ElevatedButton(
                       onPressed: () async {
-                        String name = '${_firstNameController.text} ${_surNameController.text}';
-                        String password = _passwordController.text;
-                        String dob = '${_yearController.text}-${_monthController.text}-${_dayController.text}';
+                        String name = '${_firstNameController.text.trim()}${_surNameController.text.trim()}';
+                        String password = _passwordController.text.trim();
+                        String dob = '${_yearController.text.trim()}-${_monthController.text.trim()}-${_dayController.text.trim()}';
                         BodyRegister bodyRegister = BodyRegister(
-                            widget.email,
-                            name, password, dob, widget.country
+                            widget.email.trim(),
+                            name, password, dob, widget.country.trim()
                         );
                         if(
                         _firstNameController.text.isNotEmpty &&

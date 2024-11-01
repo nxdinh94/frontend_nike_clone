@@ -4,15 +4,18 @@ import 'package:fe_nike/core/constants/padding.dart';
 import 'package:fe_nike/features/home/products/domain/entites/products.dart';
 import 'package:fe_nike/features/home/products/presentation/bloc/product_bloc.dart';
 import 'package:fe_nike/features/home/products/presentation/widgets/items.dart';
+import 'package:fe_nike/features/profile/me/presentation/bloc/me_states.dart';
 import 'package:fe_nike/helper/custom_navigation_helper.dart';
 import 'package:fe_nike/util/auth_manager.dart';
 import 'package:fe_nike/util/theme_manager.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../features/home/products/presentation/bloc/product_state.dart';
+import '../features/profile/me/presentation/bloc/me_bloc.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -22,10 +25,21 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+  bool isAm = true;
+  String amOrPm = '';
+
+  @override
+  void initState() {
+    isAm = DateFormat('hh:mm a').format(DateTime.now()).split(' ').last == 'PM'?  false:true ;
+    amOrPm = isAm ? 'Morning' : 'Afternoon';
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     final themeManager = Provider.of<ThemeManager>(context); // Access shared instance
     final isDarkMode = themeManager.themeMode == ThemeMode.dark;
+
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -53,9 +67,14 @@ class _HomeScreenState extends State<HomeScreen> {
             // Title session
             Padding(
               padding: const EdgeInsets.only(bottom: 12.0, right: 24, left: 24),
-              child: Text(
-                'Good Afternoon Nguyen',
-                style: Theme.of(context).textTheme.headlineSmall,
+              child: BlocBuilder<MeBloc, MeStates>(
+                builder: (context, state){
+                  String lastName = state.me?.name!.split(' ').last ?? "";
+                  return Text(
+                    'Good $amOrPm $lastName',
+                    style: Theme.of(context).textTheme.headlineSmall,
+                  );
+                },
               ),
             ),
             // First session

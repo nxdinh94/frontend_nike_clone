@@ -1,6 +1,7 @@
 import 'package:fe_nike/core/constants/padding.dart';
 import 'package:fe_nike/features/authentication/presentation/bloc/authentication_event.dart';
 import 'package:fe_nike/features/authentication/presentation/bloc/authentication_state.dart';
+import 'package:fe_nike/features/profile/me/presentation/bloc/me_states.dart';
 import 'package:fe_nike/helper/custom_navigation_helper.dart';
 import 'package:fe_nike/util/auth_manager.dart';
 import 'package:flutter/cupertino.dart';
@@ -9,6 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../features/authentication/presentation/bloc/authentication_bloc.dart';
+import '../features/profile/me/presentation/bloc/me_bloc.dart';
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
@@ -44,11 +46,16 @@ class ProfileScreen extends StatelessWidget {
                           ),
                           Padding(
                             padding: verticalPadding,
-                            child: Text(
-                              'Nguyen Xuan Dinh',
-                              style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                                fontWeight: FontWeight.normal
-                              ),
+                            child: BlocBuilder<MeBloc, MeStates>(
+                              builder: (context, state){
+                                String fullName = state.me?.name ?? "";
+                                return Text(
+                                  fullName,
+                                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                                      fontWeight: FontWeight.normal
+                                  ),
+                                );
+                              },
                             ),
                           ),
                           OutlinedButton(

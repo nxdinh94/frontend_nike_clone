@@ -1,4 +1,6 @@
 import 'package:fe_nike/core/constants/theme.dart';
+import 'package:fe_nike/features/profile/me/presentation/bloc/me_bloc.dart';
+import 'package:fe_nike/features/profile/me/presentation/bloc/me_events.dart';
 import 'package:fe_nike/util/theme_manager.dart';
 import 'package:fe_nike/features/authentication/presentation/bloc/authentication_bloc.dart';
 import 'package:fe_nike/features/home/products/presentation/bloc/product_bloc.dart';
@@ -84,6 +86,9 @@ class _MyAppState extends State<MyApp> {
         ),
         BlocProvider<AuthBloc>(
           create: (BuildContext context) => locator<AuthBloc>(),
+        ),
+        BlocProvider<MeBloc>(
+          create: (BuildContext context) => locator<MeBloc>()..add(const GetMeEvent()),
         ),
       ],
       child: MaterialApp.router(

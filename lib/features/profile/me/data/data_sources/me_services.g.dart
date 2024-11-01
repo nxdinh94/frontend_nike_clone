@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'product_services.dart';
+part of 'me_services.dart';
 
 // **************************************************************************
 // RetrofitGenerator
@@ -8,8 +8,8 @@ part of 'product_services.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element
 
-class _ProductServices implements ProductServices {
-  _ProductServices(
+class _MeServices implements MeServices {
+  _MeServices(
     this._dio, {
     this.baseUrl,
     this.errorLogger,
@@ -24,19 +24,19 @@ class _ProductServices implements ProductServices {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<HttpResponse<List<ProductModel>>> getProducts() async {
+  Future<HttpResponse<MeModel>> getMe() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<List<ProductModel>>>(Options(
+    final _options = _setStreamType<HttpResponse<MeModel>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
         .compose(
           _dio.options,
-          '/products',
+          '/users/me',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -45,12 +45,10 @@ class _ProductServices implements ProductServices {
           _dio.options.baseUrl,
           baseUrl,
         )));
-    final _result = await _dio.fetch<List<dynamic>>(_options);
-    late List<ProductModel> _value;
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late MeModel _value;
     try {
-      _value = _result.data!
-          .map((dynamic i) => ProductModel.fromJson(i as Map<String, dynamic>))
-          .toList();
+      _value = MeModel.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;
