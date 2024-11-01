@@ -34,7 +34,6 @@ Future<void> main() async {
     statusBarIconBrightness: Brightness.dark,
     statusBarBrightness: Brightness.light,
     systemStatusBarContrastEnforced: false
-
   ));
 
   runApp(

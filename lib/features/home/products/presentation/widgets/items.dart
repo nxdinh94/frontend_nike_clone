@@ -42,16 +42,19 @@ class _ItemsState extends State<Items> {
                 children: [
                   Text(
                     widget.productEntity.name.toString(),
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: tiny),
+                    style: Theme.of(context).textTheme.titleSmall,
                     overflow: TextOverflow.ellipsis,
 
                   ),
                   Text(
                       widget.productEntity.subtitle.toString(),
-                      style: TextStyle(fontSize: tiny, color: colorTextGrey),
+                      style: Theme.of(context).textTheme.labelSmall,
                       overflow: TextOverflow.ellipsis,
                   ),
-                  Text(widget.productEntity.price.toString().toVND(), style: TextStyle(color: colorTextBlack),),
+                  Text(
+                    widget.productEntity.price.toString().toVND(),
+                    style: Theme.of(context).textTheme.bodySmall
+                  ),
                 ],
               ),
             ),

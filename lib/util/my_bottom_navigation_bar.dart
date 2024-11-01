@@ -34,17 +34,8 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
               count++;
             });
           }
-
         },
-        type: BottomNavigationBarType.fixed,
         currentIndex: widget.child.currentIndex,
-        showUnselectedLabels: true,
-        unselectedItemColor: Colors.grey,
-        selectedItemColor: Colors.black87,
-        unselectedFontSize: 14,
-        selectedFontSize: 14,
-        backgroundColor: Colors.white,
-        selectedLabelStyle: const TextStyle(fontSize: 14),
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: const Icon(CupertinoIcons.home),
@@ -73,7 +64,6 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
                     style: TextStyle(
                       fontSize: 10,
                       color: Colors.grey,
-
                     ),
                   ),
                 )

@@ -1,5 +1,4 @@
 import 'package:fe_nike/core/common/custom_back_page_button.dart';
-import 'package:fe_nike/core/constants/colors.dart';
 import 'package:fe_nike/core/constants/font_size.dart';
 import 'package:fe_nike/features/authentication/presentation/widgets/action_near_subtitle.dart';
 import 'package:fe_nike/features/authentication/presentation/widgets/header.dart';
@@ -9,6 +8,8 @@ import 'package:fe_nike/helper/custom_navigation_helper.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+
+import '../widgets/my_textfield.dart';
 class EmailPage extends StatefulWidget {
   const EmailPage({super.key, required this.fromRequest});
   final String fromRequest;
@@ -36,10 +37,8 @@ class _EmailPageState extends State<EmailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
         surfaceTintColor: Colors.transparent,
-        backgroundColor: Colors.white,
         leading: const CustomBackPageButton(),
       ),
       body: Padding(
@@ -48,35 +47,23 @@ class _EmailPageState extends State<EmailPage> {
           child: Column(
             children: [
               const JumpManAndNikeLogo(),
-              Header(text: 'Enter your email to join \nus or sign in.'),
+              const Header(text: 'Enter your email to join \nus or sign in.'),
               Row(
                 children: [
                   Subtitle(text: 'Viet Nam'),
-                  SizedBox(width: 12),
+                  const SizedBox(width: 12),
                   ActionNearSubtitle(text: 'Change', callback: (){},)
                 ],
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 48.0),
-                child: TextField(
-                  controller: _emailController,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: const BorderSide(color: Colors.grey)
+                child: Row(
+                  children: [
+                    MyTextfield(
+                      textEditingController: _emailController,
+                      hintText: 'email',
                     ),
-                    focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      borderSide: const BorderSide(color: Colors.grey)
-                    ),
-                    filled: true,
-                    hintStyle: TextStyle(color: isEmptyEmail? Colors.redAccent :  colorTextGrey),
-                    hintText: "Email",
-                    fillColor: Colors.white70,
-                  ),
-                  onTapOutside: (PointerDownEvent event) {
-                    FocusManager.instance.primaryFocus?.unfocus();
-                  },
+                  ],
                 ),
               ),
               Row(
@@ -84,7 +71,7 @@ class _EmailPageState extends State<EmailPage> {
                   RichText(
                     text: TextSpan(
                       text: "By continue, I agree to Nike's\n" ,
-                      style: TextStyle(color: colorTextGrey, fontSize: normal),
+                      style: Theme.of(context).textTheme.labelLarge,
                       children: <TextSpan>[
                         TextSpan(
                           text: 'Privacy Policy',

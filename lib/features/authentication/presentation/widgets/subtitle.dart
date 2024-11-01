@@ -15,7 +15,7 @@ class Subtitle extends StatelessWidget {
           child: Text(
               text,
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(color: colorTextBlack, fontSize: normal)
+              style: Theme.of(context).textTheme.bodyLarge
           ),
         ),
       ],

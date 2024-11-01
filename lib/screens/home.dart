@@ -26,11 +26,8 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final themeManager = Provider.of<ThemeManager>(context); // Access shared instance
     final isDarkMode = themeManager.themeMode == ThemeMode.dark;
-
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.white,
         actions: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -58,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: const EdgeInsets.only(bottom: 12.0, right: 24, left: 24),
               child: Text(
                 'Good Afternoon Nguyen',
-                style: TextStyle(fontSize: extraBigger, fontWeight: FontWeight.bold),
+                style: Theme.of(context).textTheme.headlineSmall,
               ),
             ),
             // First session
@@ -78,23 +75,21 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text('Top Picks for You', style: TextStyle(fontSize: normal)),
+              Text('Top Picks for You', style: Theme.of(context).textTheme.titleMedium),
               GestureDetector(
                 onTap: () {
                   CustomNavigationHelper.router.push(
                       '${CustomNavigationHelper.homePath}/${CustomNavigationHelper.viewAllSlideProductPage}');
                 },
-                child: const Text(
-                    'View all',
-                    style: TextStyle(color: colorTextGrey, fontSize: small)),
-              )
+                child: Text('View all', style: Theme.of(context).textTheme.labelMedium )
+              ),
+
             ],
           ),
         ),
-        const Padding(
+        Padding(
           padding: EdgeInsets.only(left: 24.0, bottom: 24),
-          child: Text('Recommended products',
-              style: TextStyle(fontSize: normal, color: colorTextGrey)),
+          child: Text('Recommended products', style: Theme.of(context).textTheme.labelLarge),
         ),
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,

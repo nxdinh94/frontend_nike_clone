@@ -14,10 +14,9 @@ import 'package:fe_nike/features/authentication/presentation/widgets/note_passwo
 import 'package:fe_nike/features/authentication/presentation/widgets/subtitle.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../bloc/authentication_state.dart';
-import '../../widgets/textfield_register.dart';
+import '../../widgets/my_textfield.dart';
 
 class PasswordSignup extends StatefulWidget {
   const PasswordSignup({super.key, required this.email, required this.country});
@@ -67,7 +66,7 @@ class _PasswordSignupState extends State<PasswordSignup> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         surfaceTintColor: Colors.white,
-        leading: CustomBackPageButton(),
+        leading: const CustomBackPageButton(),
       ),
       body: BlocListener<AuthBloc, AuthState>(
         listener: (context, state){
@@ -99,9 +98,9 @@ class _PasswordSignupState extends State<PasswordSignup> {
                 const SizedBox(height: 24,),
                 Row(
                   children: [
-                    TextfieldRegister(
+                    MyTextfield(
                       flex: 1,
-                      labelText: 'Code*',
+                      hintText: 'Code*',
                       textEditingController: _codeController,
                       icon: CupertinoIcons.refresh,)
                   ],
@@ -112,25 +111,25 @@ class _PasswordSignupState extends State<PasswordSignup> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Text(
-                        'Resend code in 17s', style: TextStyle(color: colorTextGrey, fontSize: tiny),
+                        'Resend code in 17s', style: TextStyle(color: colorTextLabelLight, fontSize: tiny),
                       )
                     ],
                   ),
                 ),
                 Row(
                   children: [
-                    TextfieldRegister(textEditingController: _firstNameController, labelText: 'First Name*', flex: 1),
+                    MyTextfield(textEditingController: _firstNameController, hintText: 'First Name*', flex: 1),
                     const SizedBox(width: 12,),
-                    TextfieldRegister(textEditingController: _surNameController, labelText: 'SurName*', flex: 1)
+                    MyTextfield(textEditingController: _surNameController, hintText: 'SurName*', flex: 1)
                   ],
                 ),
                 const SizedBox(height: 24),
                 //Password term
                 Row(
                   children: [
-                    TextfieldRegister(
+                    MyTextfield(
                       textEditingController: _passwordController,
-                      labelText: 'Password*',
+                      hintText: 'Password*',
                       onTapIcon: (){
                         setState(() {
                           isShowPassword = !isShowPassword;
@@ -161,11 +160,11 @@ class _PasswordSignupState extends State<PasswordSignup> {
                 ),
                 Row(
                   children: [
-                    TextfieldRegister(textEditingController: _dayController, labelText: 'Day*', flex: 1),
+                    MyTextfield(textEditingController: _dayController, hintText: 'Day*', flex: 1),
                     const SizedBox(width: 12,),
-                    TextfieldRegister(textEditingController: _monthController, labelText: 'Month*', flex: 1),
+                    MyTextfield(textEditingController: _monthController, hintText: 'Month*', flex: 1),
                     const SizedBox(width: 12,),
-                    TextfieldRegister(textEditingController: _yearController, labelText: 'Year*', flex: 2),
+                    MyTextfield(textEditingController: _yearController, hintText: 'Year*', flex: 2),
                   ],
                 ),
                 const Padding(
@@ -174,7 +173,7 @@ class _PasswordSignupState extends State<PasswordSignup> {
                     children: [
                       Text(
                         'Get a Nike Member Reward on your birthday.',
-                        style: TextStyle(color: colorTextGrey, fontSize: tiny),
+                        style: TextStyle(color: colorTextLabelLight, fontSize: tiny),
                       ),
                     ],
                   ),
@@ -191,49 +190,47 @@ class _PasswordSignupState extends State<PasswordSignup> {
                 ),
                 const SizedBox(height: 24),
                 AgreeTermRegister(
-                    text: "I agree to Nike's Privacy Policy and Terms of Use.",
-                    flag: isAgreeNikePolicy,
-                    valueChanged: (bool? value) {
-                      setState(() {
-                        isAgreeNikePolicy = value!;
-                      });
-                    }
+                  text: "I agree to Nike's Privacy Policy and Terms of Use.",
+                  flag: isAgreeNikePolicy,
+                  valueChanged: (bool? value) {
+                    setState(() {
+                      isAgreeNikePolicy = value!;
+                    });
+                  }
                 ),
                 const SizedBox(height: 36),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     ElevatedButton(
-                        onPressed: () async {
+                      onPressed: () async {
+                        String name = '${_firstNameController.text} ${_surNameController.text}';
+                        String password = _passwordController.text;
+                        String dob = '${_yearController.text}-${_monthController.text}-${_dayController.text}';
+                        BodyRegister bodyRegister = BodyRegister(
+                            widget.email,
+                            name, password, dob, widget.country
+                        );
+                        if(
+                        _firstNameController.text.isNotEmpty &&
+                            _surNameController.text.isNotEmpty &&
+                            _passwordController.text.isNotEmpty &&
+                            _dayController.text.isNotEmpty &&
+                            _monthController.text.isNotEmpty &&
+                            _yearController.text.isNotEmpty
+                        ){
+                          context.read<AuthBloc>().add(AuthRegister(bodyRegister: bodyRegister));
+                        }
 
-                          String name = '${_firstNameController.text} ${_surNameController.text}';
-                          String password = _passwordController.text;
-                          String dob = '${_yearController.text}-${_monthController.text}-${_dayController.text}';
-                          BodyRegister bodyRegister = BodyRegister(
-                              widget.email,
-                              name, password, dob, widget.country
-                          );
-                          print('${bodyRegister.email}${bodyRegister.country}');
-                          if(
-                          _firstNameController.text.isNotEmpty &&
-                              _surNameController.text.isNotEmpty &&
-                              _passwordController.text.isNotEmpty &&
-                              _dayController.text.isNotEmpty &&
-                              _monthController.text.isNotEmpty &&
-                              _yearController.text.isNotEmpty
-                          ){
-                            context.read<AuthBloc>().add(AuthRegister(bodyRegister: bodyRegister));
-                          }
-
-                        },
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.black87,
-                            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24)
-                        ),
-                        child: const Text(
-                          'Create account',
-                          style: TextStyle(color: Colors.white, fontSize: small),
-                        )
+                      },
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.black87,
+                          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24)
+                      ),
+                      child: const Text(
+                        'Create account',
+                        style: TextStyle(color: Colors.white, fontSize: small),
+                      )
                     )
                   ],
                 ),

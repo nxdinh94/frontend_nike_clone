@@ -1,5 +1,6 @@
 import 'package:fe_nike/core/constants/font_size.dart';
 import 'package:fe_nike/core/constants/my_icons.dart';
+import 'package:fe_nike/core/constants/padding.dart';
 import 'package:fe_nike/features/home/products/domain/entites/products.dart';
 import 'package:flutter/material.dart';
 
@@ -34,20 +35,13 @@ class _ViewAllItemsState extends State<ViewAllItems> {
               fit: BoxFit.cover,
             ),
             Padding(
-              padding: EdgeInsets.all(12),
+              padding: defaultPadding,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(''
-                      'Nike Sportswear Phoenix Fleece',
-                    style: TextStyle(fontSize: tiny, fontWeight: FontWeight.bold),),
-                  Text(
-                    "Men's T-Shirt",
-                    style: TextStyle(fontSize: tiny, color: Colors.grey),
-                  ),
-                  Text(
-                    'đ1.999.999',  style: TextStyle(fontSize: tiny, fontWeight: FontWeight.bold),
-                  )
+                  Text('Nike Sportswear Phoenix Fleece', style: Theme.of(context).textTheme.titleSmall),
+                  Text("Men's T-Shirt", style: Theme.of(context).textTheme.labelSmall),
+                  Text('đ1.999.999',  style: Theme.of(context).textTheme.bodySmall,)
                 ],
               ),
             )

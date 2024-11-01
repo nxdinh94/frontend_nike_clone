@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/constants/colors.dart';
 
-class TextfieldRegister extends StatelessWidget {
-  const TextfieldRegister({
+class MyTextfield extends StatelessWidget {
+  const MyTextfield({
     super.key,
     required this.textEditingController,
-    required this.labelText,
-    required this.flex,
+    required this.hintText,
+    this.flex = 1,
     this.icon,
     this.onTapIcon,
     this.isObscureText
   });
   final TextEditingController textEditingController;
-  final String labelText;
+  final String hintText;
   final int flex;
   final IconData ?  icon;
   final VoidCallback ?  onTapIcon;
@@ -26,23 +26,15 @@ class TextfieldRegister extends StatelessWidget {
         obscureText: isObscureText ?? false,
         controller: textEditingController,
         decoration: InputDecoration(
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(
-                color: Colors.grey.shade800,
-              ),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            labelText: labelText,
-            labelStyle: const TextStyle(color: colorTextGrey),
-            suffixIcon: GestureDetector(
-              onTap: onTapIcon,
-              child: Icon(
-                icon, color: Colors.grey,
-              ),
-            )
+          border: Theme.of(context).inputDecorationTheme.border,
+          focusedBorder: Theme.of(context).inputDecorationTheme.border,
+          hintText: hintText,
+          hintStyle: const TextStyle(color: colorTextLabelLight),
+
+          suffixIcon: GestureDetector(
+            onTap: onTapIcon,
+            child: Icon(icon, color: Colors.grey),
+          )
         ),
         onTapOutside: (PointerDownEvent event) {
           FocusScope.of(context).requestFocus(FocusNode());

@@ -12,7 +12,7 @@ class NotePassword extends StatelessWidget {
       children: [
         const Icon(CupertinoIcons.xmark, color: Colors.grey, size: 18,),
         const SizedBox(width: 3),
-        Text(text, style: const TextStyle(color: colorTextGrey, fontSize: tiny),)
+        Text(text, style: Theme.of(context).textTheme.labelSmall,)
       ],
     );
   }

@@ -8,10 +8,7 @@ class Header extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Text(
-          text,
-          style: TextStyle(color: colorTextBlack, fontSize: 30, height: 1.2),
-        )
+        Text(text, style: Theme.of(context).textTheme.headlineMedium),
       ],
     );
   }

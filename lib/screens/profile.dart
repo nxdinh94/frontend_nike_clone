@@ -1,5 +1,3 @@
-import 'package:fe_nike/core/constants/colors.dart';
-import 'package:fe_nike/core/constants/font_size.dart';
 import 'package:fe_nike/core/constants/padding.dart';
 import 'package:fe_nike/features/authentication/presentation/bloc/authentication_event.dart';
 import 'package:fe_nike/features/authentication/presentation/bloc/authentication_state.dart';
@@ -17,7 +15,6 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       body: BlocListener<AuthBloc, AuthState>(
         listener: (context, state){
           if(state is AuthInitState){
@@ -49,21 +46,16 @@ class ProfileScreen extends StatelessWidget {
                             padding: verticalPadding,
                             child: Text(
                               'Nguyen Xuan Dinh',
-                              style: TextStyle(
-                                color: colorTextBlack, fontSize: bigger
+                              style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                                fontWeight: FontWeight.normal
                               ),
                             ),
                           ),
                           OutlinedButton(
                             onPressed: (){},
-                            style: OutlinedButton.styleFrom(
-                              side: BorderSide(color: Colors.grey.shade300)
-                            ),
                             child: Text(
                               'Edit profile',
-                              style: TextStyle(
-                                color: colorTextBlack, fontSize: small
-                              ),
+                              style: Theme.of(context).textTheme.bodyMedium,
                             )
                           )
                         ],
@@ -71,7 +63,7 @@ class ProfileScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                Container(
+                SizedBox(
                   height: 70,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -118,11 +110,7 @@ class ItemWidget extends StatelessWidget {
           children: [
             Icon(icon),
             const SizedBox(height: 3),
-            Text(
-              text,
-              style: TextStyle(color: colorTextBlack, fontSize: tiny),
-
-            )
+            Text(text, style: Theme.of(context).textTheme.bodySmall)
           ],
         ),
       ),

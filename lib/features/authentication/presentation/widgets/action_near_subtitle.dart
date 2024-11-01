@@ -11,9 +11,10 @@ class ActionNearSubtitle extends StatelessWidget {
     return GestureDetector(
       onTap: callback,
       child: Text(
-        text, style: TextStyle(
-          color: colorTextGrey,decoration: TextDecoration.underline, fontSize: normal)
+        text, style: Theme.of(context).textTheme.labelLarge?.copyWith(
+          decoration: TextDecoration.underline
         ),
+      )
     );
   }
 }
