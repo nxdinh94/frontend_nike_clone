@@ -59,7 +59,11 @@ class ProfileScreen extends StatelessWidget {
                             ),
                           ),
                           OutlinedButton(
-                            onPressed: (){},
+                            onPressed: (){
+                              context.go('${CustomNavigationHelper.profilePath}/${
+                                CustomNavigationHelper.updateProfilePath
+                              }');
+                            },
                             child: Text(
                               'Edit profile',
                               style: Theme.of(context).textTheme.bodyMedium,

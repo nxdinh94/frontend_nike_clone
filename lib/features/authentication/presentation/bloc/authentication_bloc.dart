@@ -23,7 +23,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState>{
   Future<void> _onLogin(AuthLogin event , Emitter<AuthState> emit)async{
     BodyLogin bodyLogin = BodyLogin(email: event.email, password: event.password);
     final dataState = await _loginUseCase(params: bodyLogin);
-    print(dataState.runtimeType);
     if(dataState is DataSuccess){
       AuthManager.decodeAccessToken(dataState.data!.accessToken, dataState.data!.refreshToken);
       emit(AuthSuccessState(dataState.data! ));

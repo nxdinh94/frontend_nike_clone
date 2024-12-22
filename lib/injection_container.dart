@@ -11,13 +11,18 @@ import 'package:fe_nike/features/home/products/data/responsitory/product_reposit
 import 'package:fe_nike/features/home/products/domain/responsitory/product_repository.dart';
 import 'package:fe_nike/features/home/products/domain/usecases/get_product.dart';
 import 'package:fe_nike/features/home/products/presentation/bloc/product_bloc.dart';
+import 'package:fe_nike/features/product_detail/data/data_sources/detail_product_service.dart';
+import 'package:fe_nike/features/product_detail/data/respository/detail_product_repos_imp.dart';
+import 'package:fe_nike/features/product_detail/domain/respository/detail_product_repos.dart';
+import 'package:fe_nike/features/product_detail/domain/usecases/change_favorite_usecase.dart';
+import 'package:fe_nike/features/product_detail/domain/usecases/get_favorite_usecase.dart';
+import 'package:fe_nike/features/product_detail/presentation/bloc/change_favorite/bloc.dart';
 import 'package:fe_nike/features/profile/me/data/data_sources/me_services.dart';
 import 'package:fe_nike/features/profile/me/data/responsitory/me_repository_imp.dart';
 import 'package:fe_nike/features/profile/me/domain/responsitory/me_reponsitory.dart';
 import 'package:fe_nike/features/profile/me/domain/usecases/get_me.dart';
 import 'package:fe_nike/features/profile/me/presentation/bloc/me_bloc.dart';
 import 'package:fe_nike/util/token_interceptor.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -50,5 +55,14 @@ Future<void> setupLocator ()async{
   locator.registerSingleton<MeRepository>(MeRepositoryImp(locator()));
   locator.registerSingleton<GetMeUseCases>(GetMeUseCases(locator()));
   locator.registerSingleton<MeBloc>(MeBloc(locator()));
+
+  //detail product bloc
+
+  locator.registerSingleton<DetailProductService>(DetailProductService(locator()));
+  locator.registerSingleton<DetailProductRepository>(DetailProductRepoImp(locator()));
+  locator.registerSingleton<ChangeFavoriteUseCase>(ChangeFavoriteUseCase(locator()));
+  locator.registerSingleton<GetFavoriteUsecase>(GetFavoriteUsecase(locator()));
+  locator.registerSingleton<GetFavoriteBloc>(GetFavoriteBloc(locator(), locator()));
+
 
 }

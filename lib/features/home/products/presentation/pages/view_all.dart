@@ -25,16 +25,13 @@ class _ViewAllState extends State<ViewAll> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.white,
         surfaceTintColor: Colors.transparent,
         leading: const CustomBackPageButton(),
         centerTitle: true,
         title: Text(
           'Top picks for you',
-          style: TextStyle(
-            fontSize: normal,
+          style: Theme.of(context).textTheme.titleLarge?.copyWith(
             fontWeight: FontWeight.w500
           ),
         ),

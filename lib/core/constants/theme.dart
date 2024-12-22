@@ -15,6 +15,7 @@ ThemeData darkTheme = ThemeData(
     onPrimaryContainer: Color(0xFFFFD8E6),
     secondary: Color(0xFFE1BDCA),
     onSecondary: Color(0xFF412A33),
+    surface: Colors.black87
   ),
   textTheme: const TextTheme(
     headlineMedium: TextStyle(
@@ -37,14 +38,14 @@ ThemeData darkTheme = ThemeData(
       height: 1.2,
       fontFamily: 'Roboto',
       letterSpacing: 0,
-      fontWeight: FontWeight.normal,
+      fontWeight: FontWeight.w500,
     ),
     titleMedium: TextStyle(
       fontSize: normal,  color: colorTextWhite,
       height: 1.2,
       fontFamily: 'Roboto',
       letterSpacing: 0,
-      fontWeight: FontWeight.normal,
+      fontWeight: FontWeight.w500,
     ),
     titleSmall: TextStyle(
       fontSize: tiny,
@@ -80,7 +81,7 @@ ThemeData darkTheme = ThemeData(
     ),
     labelLarge: TextStyle(
       fontSize: normal,
-      color: colorTextLabelLight,
+      color: colorTextLabelDark,
       height: 1.2,
       fontFamily: 'Roboto',
       letterSpacing: 0,
@@ -88,14 +89,14 @@ ThemeData darkTheme = ThemeData(
     ),
     labelMedium: TextStyle(
       fontSize: small,
-      color: colorTextLabelLight,height: 1.2,
+      color: colorTextLabelDark,height: 1.2,
       fontFamily: 'Roboto',
       letterSpacing: 0,
       fontWeight: FontWeight.normal,
     ),
     labelSmall: TextStyle(
       fontSize: tiny,
-      color: colorTextLabelLight,height: 1.2,
+      color: colorTextLabelDark,height: 1.2,
       fontFamily: 'Roboto',
       letterSpacing: 0,
       fontWeight: FontWeight.normal,
@@ -135,7 +136,11 @@ ThemeData darkTheme = ThemeData(
     type: BottomNavigationBarType.fixed,
     showSelectedLabels: true,
     showUnselectedLabels: true,
-  )
+  ),
+    appBarTheme: AppBarTheme(
+        surfaceTintColor: Colors.black87
+    )
+
 );
 
 ThemeData lightTheme = ThemeData(
@@ -174,14 +179,14 @@ ThemeData lightTheme = ThemeData(
       height: 1.2,
       fontFamily: 'Roboto',
       letterSpacing: 0,
-      fontWeight: FontWeight.normal,
+      fontWeight: FontWeight.w500,
     ),
     titleMedium: TextStyle(
       fontSize: normal,  color: colorTextBlack,
       height: 1.2,
       fontFamily: 'Roboto',
       letterSpacing: 0,
-      fontWeight: FontWeight.normal,
+      fontWeight: FontWeight.w500,
     ),
     titleSmall: TextStyle(
       fontSize: tiny,
@@ -247,9 +252,28 @@ ThemeData lightTheme = ThemeData(
   ),
   outlinedButtonTheme: OutlinedButtonThemeData(
     style: OutlinedButton.styleFrom(
-      side: BorderSide(color: Colors.grey.shade300)
+      side: BorderSide(color: Colors.grey.shade300),
+      padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 14),
+      overlayColor: Colors.grey,
+      foregroundColor: colorTextBlack,
+      textStyle: TextStyle(
+        fontSize: normal,
+        fontFamily: 'Roboto',
+      ),
+    ),
+  ),
+  elevatedButtonTheme: ElevatedButtonThemeData(
+    style: ElevatedButton.styleFrom(
+      backgroundColor: Colors.black87,
+      textStyle: TextStyle(
+        fontSize: normal,
+        fontFamily: 'Roboto',
+      ),
+      foregroundColor: colorTextWhite
+
     )
   ),
+
   // iconButtonTheme: IconButtonThemeData(
   //
   // ),
@@ -272,6 +296,15 @@ ThemeData lightTheme = ThemeData(
     type: BottomNavigationBarType.fixed,
     showSelectedLabels: true,
     showUnselectedLabels: true,
+  ),
+  appBarTheme: AppBarTheme(
+    surfaceTintColor: Colors.white,
+    centerTitle: true,
+    titleTextStyle: TextStyle(
+      fontSize: normal,
+      fontWeight: FontWeight.w500,
+      color: colorTextBlack
+    ),
   ),
 
 

@@ -1,4 +1,3 @@
-import 'package:fe_nike/core/constants/font_size.dart';
 import 'package:fe_nike/core/constants/my_icons.dart';
 import 'package:fe_nike/core/constants/padding.dart';
 import 'package:fe_nike/features/home/products/domain/entites/products.dart';
@@ -39,9 +38,9 @@ class _ViewAllItemsState extends State<ViewAllItems> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Nike Sportswear Phoenix Fleece', style: Theme.of(context).textTheme.titleSmall),
-                  Text("Men's T-Shirt", style: Theme.of(context).textTheme.labelSmall),
-                  Text('đ1.999.999',  style: Theme.of(context).textTheme.bodySmall,)
+                  Text(widget.product.name ?? "", style: Theme.of(context).textTheme.titleSmall),
+                  Text(widget.product.subtitle?? "", style: Theme.of(context).textTheme.labelSmall),
+                  Text(widget.product.price.toString()??"",  style: Theme.of(context).textTheme.bodySmall,)
                 ],
               ),
             )
@@ -57,7 +56,7 @@ class _ViewAllItemsState extends State<ViewAllItems> {
               height: 35,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: Colors.white
+                color: Theme.of(context).colorScheme.surface
               ),
               child: GestureDetector(
                 onTap: (){

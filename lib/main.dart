@@ -1,4 +1,5 @@
 import 'package:fe_nike/core/constants/theme.dart';
+import 'package:fe_nike/features/product_detail/presentation/bloc/change_favorite/bloc.dart';
 import 'package:fe_nike/features/profile/me/presentation/bloc/me_bloc.dart';
 import 'package:fe_nike/features/profile/me/presentation/bloc/me_events.dart';
 import 'package:fe_nike/util/theme_manager.dart';
@@ -90,6 +91,9 @@ class _MyAppState extends State<MyApp> {
         BlocProvider<MeBloc>(
           create: (BuildContext context) => locator<MeBloc>()..add(const GetMeEvent()),
         ),
+        BlocProvider<GetFavoriteBloc>(
+            create: (BuildContext context) => locator<GetFavoriteBloc>()
+        )
       ],
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,

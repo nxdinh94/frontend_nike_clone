@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'me_services.dart';
+part of 'detail_product_service.dart';
 
 // **************************************************************************
 // RetrofitGenerator
@@ -8,8 +8,8 @@ part of 'me_services.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element
 
-class _MeServices implements MeServices {
-  _MeServices(
+class _DetailProductService implements DetailProductService {
+  _DetailProductService(
     this._dio, {
     this.baseUrl,
     this.errorLogger,
@@ -24,19 +24,20 @@ class _MeServices implements MeServices {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<HttpResponse<MeModel>> getMe() async {
+  Future<HttpResponse<ChangeFavoriteModel>> changeFavorite(
+      String productId) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<MeModel>>(Options(
-      method: 'GET',
+    final _options = _setStreamType<HttpResponse<ChangeFavoriteModel>>(Options(
+      method: 'POST',
       headers: _headers,
       extra: _extra,
     )
         .compose(
           _dio.options,
-          '/users/me',
+          '/users/favorite/${productId}',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -46,9 +47,44 @@ class _MeServices implements MeServices {
           baseUrl,
         )));
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late MeModel _value;
+    late ChangeFavoriteModel _value;
     try {
-      _value = MeModel.fromJson(_result.data!);
+      _value = ChangeFavoriteModel.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    final httpResponse = HttpResponse(_value, _result);
+    return httpResponse;
+  }
+
+  @override
+  Future<HttpResponse<ChangeFavoriteModel>> getFavorite(
+      String productId) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<HttpResponse<ChangeFavoriteModel>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/users/favorite/${productId}',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late ChangeFavoriteModel _value;
+    try {
+      _value = ChangeFavoriteModel.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;

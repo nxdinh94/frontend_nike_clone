@@ -2,7 +2,10 @@ import 'package:fe_nike/features/authentication/presentation/pages/email_page.da
 import 'package:fe_nike/features/authentication/presentation/pages/home_auth.dart';
 import 'package:fe_nike/features/authentication/presentation/pages/signin/password_signin.dart';
 import 'package:fe_nike/features/authentication/presentation/pages/signup/password_signup.dart';
+import 'package:fe_nike/features/home/products/domain/entites/products.dart';
 import 'package:fe_nike/features/home/products/presentation/pages/view_all.dart';
+import 'package:fe_nike/features/product_detail/presentation/pages/home_product_detail.dart';
+import 'package:fe_nike/features/profile/me/presentation/pages/update_profile.dart';
 import 'package:fe_nike/screens/bag.dart';
 import 'package:fe_nike/screens/favourite.dart';
 import 'package:fe_nike/screens/home.dart';
@@ -49,6 +52,12 @@ class CustomNavigationHelper {
 
   static const String viewAllSlideProductPage = 'viewAllSlideProductPagePath';
 
+  //profile child path
+  static const String updateProfilePath = 'updateProfile';
+
+  //Product detail path
+  static const String homeProductDetailPath = '/homeProductDetail';
+
 
   CustomNavigationHelper._internal();
   static final CustomNavigationHelper _instance = CustomNavigationHelper._internal();//instance of CustomNavigatorHelper
@@ -83,8 +92,22 @@ class CustomNavigationHelper {
                               state: state
                           );
                         }
-                    )
+                    ),
+
                   ]
+              ),
+              //Product detail
+              GoRoute(
+                  path: homeProductDetailPath,
+                  pageBuilder: (context, GoRouterState state){
+                    ProductEntity product = state.extra as ProductEntity;
+                    return getPage(
+                        child: HomeProductDetail(
+                          productEntity: product,
+                        ),
+                        state: state
+                    );
+                  }
               ),
             ],
           ),
@@ -141,6 +164,17 @@ class CustomNavigationHelper {
                     state: state,
                   );
                 },
+                routes: <RouteBase>[
+                  GoRoute(
+                    path: CustomNavigationHelper.updateProfilePath,
+                    pageBuilder: (context, state) {
+                      return getPage(
+                        child: UpdateProfile(),
+                        state: state
+                      );
+                    },
+                  )
+                ]
               ),
 
             ],

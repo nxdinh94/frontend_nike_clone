@@ -11,6 +11,7 @@ import 'package:fe_nike/util/theme_manager.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -65,17 +66,18 @@ class _HomeScreenState extends State<HomeScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Title session
-            Padding(
-              padding: const EdgeInsets.only(bottom: 12.0, right: 24, left: 24),
-              child: BlocBuilder<MeBloc, MeStates>(
-                builder: (context, state){
-                  String lastName = state.me?.name!.split(' ').last ?? "";
-                  return Text(
+            BlocBuilder<MeBloc, MeStates>(
+              builder: (context, state){
+                String lastName = state.me?.name!.split(' ').last ?? "";
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 12.0, right: 24, left: 24),
+                  child: Text(
                     'Good $amOrPm $lastName',
                     style: Theme.of(context).textTheme.headlineSmall,
-                  );
-                },
-              ),
+                      overflow: TextOverflow.ellipsis,
+                  ),
+                );
+              },
             ),
             // First session
             _recommendedProducts()
@@ -97,7 +99,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Text('Top Picks for You', style: Theme.of(context).textTheme.titleMedium),
               GestureDetector(
                 onTap: () {
-                  CustomNavigationHelper.router.push(
+                  context.push(
                       '${CustomNavigationHelper.homePath}/${CustomNavigationHelper.viewAllSlideProductPage}');
                 },
                 child: Text('View all', style: Theme.of(context).textTheme.labelMedium )
