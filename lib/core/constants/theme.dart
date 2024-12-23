@@ -262,7 +262,7 @@ ThemeData lightTheme = ThemeData(
   outlinedButtonTheme: OutlinedButtonThemeData(
     style: OutlinedButton.styleFrom(
       side: BorderSide(color: Colors.grey.shade300),
-      padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 14),
+      padding: const EdgeInsets.symmetric(vertical: 16),
       overlayColor: Colors.grey,
       foregroundColor: colorTextBlack,
       textStyle: TextStyle(
@@ -278,7 +278,8 @@ ThemeData lightTheme = ThemeData(
         fontSize: normal,
         fontFamily: 'Roboto',
       ),
-      foregroundColor: colorTextWhite
+      foregroundColor: colorTextWhite,
+      padding: const EdgeInsets.symmetric(vertical: 16)
 
     )
   ),

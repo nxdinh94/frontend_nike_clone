@@ -18,14 +18,30 @@ class FavoriteScreen extends StatefulWidget {
 
 class _FavoriteScreenState extends State<FavoriteScreen> {
   final ScrollController _scrollController = ScrollController();
+  bool hideAppBarTitle = true;
+
+  void _handlePositionAttach() {
+    if(_scrollController.offset >= 23){
+      setState(() {
+        hideAppBarTitle = false;
+      });
+    }else {
+      setState(() {
+        hideAppBarTitle = true;
+      });
+    }
+  }
+
   @override
   void initState() {
+    _scrollController.addListener(_handlePositionAttach);
     super.initState();
   }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: hideAppBarTitle ? const Text('') : const Text('Favorites'),
         actions: [
           TextButton(
             onPressed: () {},
@@ -38,7 +54,10 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Favorite', style: Theme.of(context).textTheme.headlineLarge),
+            Padding(
+              padding: const EdgeInsets.only(left: 24.0, bottom: 24),
+              child: Text('Favorites', style: Theme.of(context).textTheme.headlineLarge),
+            ),
             // Grid Section
             BlocBuilder<FavoriteProductBloc, FavoriteProductState>(
                 builder: (context, state){
@@ -49,7 +68,99 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                         runSpacing: 8.0, // Space between items vertically
                         children: favoriteProducts.map((FavoriteProductEntity favoriteProduct){
                           return FavoriteProductItems(
-                              voidCallback: (){},
+                              voidCallback: (){
+                                showModalBottomSheet<void>(
+                                  context: context,
+                                  shape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.vertical(top: Radius.circular(10.0)),
+                                  ),
+                                  // Make it pop up over navigator
+                                  useRootNavigator: true,
+                                  builder: (BuildContext context) {
+                                    //This will automatically expand the bottomSheet according to content inside.
+                                    return Wrap(
+                                      children: [
+                                        Container(
+                                          padding: defaultPadding,
+                                          child: Column(
+                                            mainAxisAlignment: MainAxisAlignment.start,
+                                            children: [
+                                              SizedBox(
+                                                height: 160,
+                                                child: Row(
+                                                  children: [
+                                                    ClipRRect(
+                                                        borderRadius: BorderRadius.circular(10),
+                                                        child: Image.network(
+                                                          favoriteProduct.thumbnail.toString(),
+                                                          width: 150, height: 150, fit: BoxFit.cover,
+                                                        )
+                                                    ),
+                                                    Padding(
+                                                      padding: defaultPadding,
+                                                      child: Column(
+                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                        children: [
+                                                          Text(
+                                                            favoriteProduct.price.toString(),
+                                                            style: Theme.of(context).textTheme.titleSmall,
+                                                            overflow: TextOverflow.ellipsis,
+                                                          ),
+                                                          Column(
+                                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                                            children: [
+                                                              Text(
+                                                                favoriteProduct.subtitle??"Anonymous",
+                                                                style: Theme.of(context).textTheme.labelSmall,
+                                                                overflow: TextOverflow.ellipsis,
+                                                              ),
+                                                              Row(
+                                                                mainAxisSize: MainAxisSize.min,
+                                                                children: [
+                                                                  Text(
+                                                                    favoriteProduct.name??"Anonymous",
+                                                                    style: Theme.of(context).textTheme.titleSmall,
+                                                                    overflow: TextOverflow.ellipsis,
+                                                                    maxLines: 2,
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                              Text(
+                                                                favoriteProduct.color??"Anonymous",
+                                                                style: Theme.of(context).textTheme.labelSmall,
+                                                                overflow: TextOverflow.ellipsis,
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ],
+                                                      )
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                              const Padding(
+                                                padding: verticalPadding,
+                                                child: Divider(),
+                                              ),
+                                              Row(
+                                                children: [
+                                                  Expanded(
+                                                    child: ElevatedButton(
+                                                      onPressed: (){},
+                                                      child: Text('More Details')
+                                                    ),
+                                                  ),
+                                                ],
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              },
                               favoriteProduct: favoriteProduct,
                               width:  MediaQuery.of(context).size.width / 2 -2,
                           );
@@ -59,33 +170,38 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                   return const CircularProgressIndicator();
                 }
             ),
-            const SizedBox(height: 16),
-            Padding(
-              padding: horizontalPadding,
-              child: Divider(),
-            ),
+            const SizedBox(height: 12),
+            const Padding(padding: EdgeInsets.only(left: 24, right: 24), child: Divider()),
+            const SizedBox(height: 12),
+
             // Horizontal List Section
             Padding(
-              padding: horizontalPadding,
-              child: SizedBox(
-                height: 100,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: List.generate(10, (index) {
-                    // return Items(
-                    //   productEntity: productEntity
-                    // )
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        color: Colors.red,
-                        width: 100,
-                        height: 200,
+              padding: const EdgeInsets.only(left: 24, bottom: 24),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Find Your Next Favorites', style: Theme.of(context).textTheme.headlineLarge),
+                    SizedBox(
+                      height: 100,
+                      child: ListView(
+                        scrollDirection: Axis.horizontal,
+                        children: List.generate(10, (index) {
+                          // return Items(
+                          //   productEntity: productEntity
+                          // )
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              color: Colors.red,
+                              width: 100,
+                              height: 200,
+                            ),
+                          );
+                        }),
                       ),
-                    );
-                  }),
+                    ),
+                  ],
                 ),
-              ),
             ),
           ],
         ),

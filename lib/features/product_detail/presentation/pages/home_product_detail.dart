@@ -161,19 +161,22 @@ class _HomeProductDetailState extends State<HomeProductDetail> {
                   Row(
                     children: [
                       Expanded(
-                        child: OutlinedButton(
-                          onPressed: (){},
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Text('Select size'),
-                              SizedBox(width: 6),
-                              Icon(Icons.keyboard_arrow_down_rounded, size: 32,)
-                            ],
-                          ),
-                          style: OutlinedButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(vertical: 10),
-                          ),
+                        child: BlocBuilder<GetFavoriteBloc, GetFavoriteState>(
+                            builder: (context, state){
+                              return OutlinedButton(
+                                onPressed: (){
+                                  context.read<GetFavoriteBloc>().add(ChangeFavorite(productId: widget.productEntity.id.toString()));
+                                },
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Text('Select size'),
+                                    const SizedBox(width: 3,),
+                                    Icon(CupertinoIcons.chevron_down, size: 24)
+                                  ],
+                                ),
+                              );
+                            }
                         ),
                       ),
                     ],
@@ -184,9 +187,6 @@ class _HomeProductDetailState extends State<HomeProductDetail> {
                       Expanded(
                         child: ElevatedButton(
                           onPressed: (){},
-                          style: ElevatedButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(vertical: 16),
-                          ),
                           child: Text('Add to Bag'),
                         ),
                       ),
@@ -202,13 +202,11 @@ class _HomeProductDetailState extends State<HomeProductDetail> {
                               onPressed: (){
                                 context.read<GetFavoriteBloc>().add(ChangeFavorite(productId: widget.productEntity.id.toString()));
                               },
-                              style: OutlinedButton.styleFrom(
-                                padding: const EdgeInsets.symmetric(vertical: 14),
-                              ),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   const Text('Favorite'),
+                                  const SizedBox(width: 3,),
                                   Icon(state.isFavorite ?? false ? CupertinoIcons.suit_heart_fill: CupertinoIcons.heart, size: 24)
                                 ],
                               ),
