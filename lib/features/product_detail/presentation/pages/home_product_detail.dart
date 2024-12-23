@@ -209,7 +209,7 @@ class _HomeProductDetailState extends State<HomeProductDetail> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   const Text('Favorite'),
-                                  Icon(state.isFavorite ??false ? CupertinoIcons.suit_heart_fill: CupertinoIcons.heart, size: 24)
+                                  Icon(state.isFavorite ?? false ? CupertinoIcons.suit_heart_fill: CupertinoIcons.heart, size: 24)
                                 ],
                               ),
                             );

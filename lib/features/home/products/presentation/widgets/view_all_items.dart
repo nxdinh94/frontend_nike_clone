@@ -3,7 +3,7 @@ import 'package:fe_nike/core/constants/padding.dart';
 import 'package:fe_nike/features/home/products/domain/entites/products.dart';
 import 'package:flutter/material.dart';
 
-import '../../data/model/ProductModel.dart';
+import '../../data/model/product_model.dart';
 
 class ViewAllItems extends StatefulWidget {
   const ViewAllItems({super.key, required this.product});

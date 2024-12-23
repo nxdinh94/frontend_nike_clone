@@ -1,5 +1,9 @@
+import 'package:fe_nike/features/authentication/presentation/bloc/authentication_bloc.dart';
+import 'package:fe_nike/features/favorites/favorite_products/presentation/bloc/bloc.dart';
+import 'package:fe_nike/features/favorites/favorite_products/presentation/bloc/event.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 class MyBottomNavigationBar extends StatefulWidget {
@@ -33,6 +37,10 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
             setState(() {
               count++;
             });
+          }
+          // refresh ui whenever go through favorite tab
+          if(index == 2){
+            context.read<FavoriteProductBloc>().add(const GetFavoriteProduct());
           }
         },
         currentIndex: widget.child.currentIndex,

@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 import '../../../../../core/constants/queries.dart';
-import '../model/ProductModel.dart';
+import '../model/product_model.dart';
 part 'product_services.g.dart';  // Add this line to include the generated file
 
 @RestApi(baseUrl: baseUrl)

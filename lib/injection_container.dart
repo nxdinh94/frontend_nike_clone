@@ -6,9 +6,14 @@ import 'package:fe_nike/features/authentication/domain/usecases/login.dart';
 import 'package:fe_nike/features/authentication/domain/usecases/logout.dart';
 import 'package:fe_nike/features/authentication/domain/usecases/register.dart';
 import 'package:fe_nike/features/authentication/presentation/bloc/authentication_bloc.dart';
+import 'package:fe_nike/features/favorites/favorite_products/data/data_sources/favorite_product_services.dart';
+import 'package:fe_nike/features/favorites/favorite_products/data/repository/favorite_product_repo_imp.dart';
+import 'package:fe_nike/features/favorites/favorite_products/domain/repository/favorite_product_repo.dart';
+import 'package:fe_nike/features/favorites/favorite_products/domain/usecase/get_favorite_product_usecases.dart';
+import 'package:fe_nike/features/favorites/favorite_products/presentation/bloc/bloc.dart';
 import 'package:fe_nike/features/home/products/data/data_sources/product_services.dart';
-import 'package:fe_nike/features/home/products/data/responsitory/product_repository_imp.dart';
-import 'package:fe_nike/features/home/products/domain/responsitory/product_repository.dart';
+import 'package:fe_nike/features/home/products/data/reponsitory/product_repository_imp.dart';
+import 'package:fe_nike/features/home/products/domain/reponsitory/product_repository.dart';
 import 'package:fe_nike/features/home/products/domain/usecases/get_product.dart';
 import 'package:fe_nike/features/home/products/presentation/bloc/product_bloc.dart';
 import 'package:fe_nike/features/product_detail/data/data_sources/detail_product_service.dart';
@@ -63,6 +68,12 @@ Future<void> setupLocator ()async{
   locator.registerSingleton<ChangeFavoriteUseCase>(ChangeFavoriteUseCase(locator()));
   locator.registerSingleton<GetFavoriteUsecase>(GetFavoriteUsecase(locator()));
   locator.registerSingleton<GetFavoriteBloc>(GetFavoriteBloc(locator(), locator()));
+
+  // Get favorite Product
+  locator.registerSingleton<FavoriteProductServices>(FavoriteProductServices(locator()));
+  locator.registerSingleton<FavoriteProductRepo>(FavoriteProductRepoImp(locator()));
+  locator.registerSingleton<GetFavoriteProductUseCase>(GetFavoriteProductUseCase(locator()));
+  locator.registerSingleton<FavoriteProductBloc>(FavoriteProductBloc(locator()));
 
 
 }

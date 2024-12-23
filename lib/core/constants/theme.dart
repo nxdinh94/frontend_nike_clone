@@ -158,17 +158,26 @@ ThemeData lightTheme = ThemeData(
 
   ),
   textTheme: const TextTheme(
-    headlineMedium: TextStyle(
+    headlineLarge: TextStyle(
       color: colorTextBlack,
-      fontSize: 30,
+      fontSize: extraBigger,
+      fontWeight: FontWeight.w500,
       height: 1.2,
       fontFamily: 'Roboto',
       letterSpacing: 0,
     ),
-    headlineSmall: TextStyle(
-      fontSize: extraBigger,
+    headlineMedium: TextStyle(
       color: colorTextBlack,
-      fontWeight: FontWeight.bold,
+      fontSize: bigger,
+      height: 1.2,
+      fontWeight: FontWeight.w500,
+      fontFamily: 'Roboto',
+      letterSpacing: 0,
+    ),
+    headlineSmall: TextStyle(
+      fontSize: big,
+      color: colorTextBlack,
+      fontWeight: FontWeight.w500,
       height: 1.2,
       fontFamily: 'Roboto',
       letterSpacing: 0,
@@ -277,6 +286,21 @@ ThemeData lightTheme = ThemeData(
   // iconButtonTheme: IconButtonThemeData(
   //
   // ),
+  textButtonTheme: TextButtonThemeData(
+    style: ButtonStyle(
+      textStyle: WidgetStatePropertyAll(
+        const TextStyle(
+          color: colorTextLabelLight,
+          fontSize: normal
+        )
+      ),
+    overlayColor: WidgetStatePropertyAll(Colors.transparent),
+    backgroundColor: WidgetStatePropertyAll(Colors.transparent),
+    surfaceTintColor: WidgetStatePropertyAll(Colors.transparent),
+    foregroundColor: WidgetStateProperty.all(colorTextLabelLight),
+
+    )
+  ),
   iconTheme: const IconThemeData(
     size: 28,
     color: Colors.black87,
@@ -306,6 +330,11 @@ ThemeData lightTheme = ThemeData(
       color: colorTextBlack
     ),
   ),
+  dividerTheme: DividerThemeData(
+    color: Colors.grey.shade200,
+    thickness: 0.9,
+
+  )
 
 
 );

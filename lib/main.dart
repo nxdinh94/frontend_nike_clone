@@ -1,4 +1,6 @@
 import 'package:fe_nike/core/constants/theme.dart';
+import 'package:fe_nike/features/favorites/favorite_products/presentation/bloc/bloc.dart';
+import 'package:fe_nike/features/favorites/favorite_products/presentation/bloc/event.dart';
 import 'package:fe_nike/features/product_detail/presentation/bloc/change_favorite/bloc.dart';
 import 'package:fe_nike/features/profile/me/presentation/bloc/me_bloc.dart';
 import 'package:fe_nike/features/profile/me/presentation/bloc/me_events.dart';
@@ -19,13 +21,11 @@ Future<void> main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   await setupLocator();
 
-  // setup light mode
-  int? mode =  locator<SharedPreferences>().getInt('mode');
+  // setup light mode if no mode chosen
+  int ? mode =  locator<SharedPreferences>().getInt('mode');
   if(mode == null){
     locator<SharedPreferences>().setInt('mode', 0);
   }
-
-
   if (AuthManager.isLogin()) {
     CustomNavigationHelper(CustomNavigationHelper.homePath);
   } else {
@@ -93,7 +93,11 @@ class _MyAppState extends State<MyApp> {
         ),
         BlocProvider<GetFavoriteBloc>(
             create: (BuildContext context) => locator<GetFavoriteBloc>()
-        )
+        ),
+        BlocProvider<FavoriteProductBloc>(
+            create: (BuildContext context) => locator<FavoriteProductBloc>()..add(const GetFavoriteProduct())
+        ),
+        
       ],
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,

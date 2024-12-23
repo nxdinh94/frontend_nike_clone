@@ -1,7 +1,7 @@
 
 import 'package:equatable/equatable.dart';
 
-class ProductEntity extends Equatable{
+class FavoriteProductEntity extends Equatable{
 
   final int ? id ;
   final String ? name ;
@@ -21,7 +21,7 @@ class ProductEntity extends Equatable{
   final String ? styleCode ;
   final String ? country ;
 
-  const ProductEntity({
+  const FavoriteProductEntity({
     this.id,
     this.name,
     this.subtitle,

@@ -6,12 +6,17 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 class Items extends StatefulWidget {
   final ProductEntity productEntity;
-  const Items({super.key, required this.productEntity});
+  final double width;
+  final double height;
+  const Items({
+    super.key,
+    required this.productEntity,
+    this.width = 150,
+    this.height = 250
+  });
 
   @override
   State<Items> createState() => _ItemsState();
-
-
 }
 
 class _ItemsState extends State<Items> {
@@ -19,7 +24,7 @@ class _ItemsState extends State<Items> {
   @override
   void initState() {
     // get the first image of each item
-    thumbnailUrl = widget.productEntity.imageList?[widget.productEntity.imageList!.keys.toList().first][0]['url'];
+    thumbnailUrl = widget.productEntity.thumbnail!;
     super.initState();
   }
   @override
@@ -27,20 +32,20 @@ class _ItemsState extends State<Items> {
     return GestureDetector(
       onTap: (){
         context.push(
-          CustomNavigationHelper.homeProductDetailPath,
-          extra: widget.productEntity
+            CustomNavigationHelper.homeProductDetailPath,
+            extra: widget.productEntity
         );
       },
       behavior: HitTestBehavior.opaque,
       child: SizedBox(
-        width: 150,
-        height: 250,
+        width: widget.width,
+        height: widget.height,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: Image.network(thumbnailUrl, width: 150, height: 170, fit: BoxFit.cover,)
+                borderRadius: BorderRadius.circular(10),
+                child: Image.network(thumbnailUrl, width: 150, height: 170, fit: BoxFit.cover,)
             ),
             Padding(
               padding: topPadding,
@@ -59,8 +64,8 @@ class _ItemsState extends State<Items> {
                       overflow: TextOverflow.ellipsis,
                     ),
                     Text(
-                      widget.productEntity.price.toString(),
-                      style: Theme.of(context).textTheme.bodySmall
+                        widget.productEntity.price.toString(),
+                        style: Theme.of(context).textTheme.bodySmall
                     ),
                   ],
                 ),

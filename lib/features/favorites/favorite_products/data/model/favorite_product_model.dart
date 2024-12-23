@@ -1,9 +1,10 @@
 
 
+import 'package:fe_nike/features/favorites/favorite_products/domain/entity/favorite_product_entity.dart';
 import 'package:fe_nike/features/home/products/domain/entites/products.dart';
 
-class ProductModel extends ProductEntity{
-  const ProductModel({
+class FavoriteProductModel extends FavoriteProductEntity{
+  const FavoriteProductModel({
     super.id,
     super.name,
     super.subtitle,
@@ -18,11 +19,12 @@ class ProductModel extends ProductEntity{
     super.style,
     super.material,
     super.color,
+    super.thumbnail,
     super.styleCode,
     super.country,
   });
-  factory ProductModel.fromJson(Map < String, dynamic > map){
-    return ProductModel(
+  factory FavoriteProductModel.fromJson(Map < String, dynamic > map){
+    return FavoriteProductModel(
       id: map['id']?? 0,
       name: map['name'] ?? "",
       subtitle: map['subtitle'] ?? "",
@@ -37,12 +39,13 @@ class ProductModel extends ProductEntity{
       style: map['style'] ?? "",
       material: map['material'] ?? "",
       color: map['color'] ?? '',
+      thumbnail: map['thumbnail'] ?? '',
       styleCode: map['styleCode'] ?? "",
       country: map['country'] ?? "",
     );
   }
-  factory ProductModel.fromEntity(ProductEntity entity){
-    return ProductModel(
+  factory FavoriteProductModel.fromEntity(FavoriteProductEntity entity){
+    return FavoriteProductModel(
       id: entity.id,
       name: entity.name,
       subtitle: entity.subtitle,
@@ -57,6 +60,7 @@ class ProductModel extends ProductEntity{
       style: entity.style,
       material: entity.material,
       color: entity.color,
+      thumbnail: entity.thumbnail,
       styleCode: entity.styleCode,
       country: entity.country,
     );
