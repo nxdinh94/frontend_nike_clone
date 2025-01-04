@@ -1,0 +1,1 @@
+String defaultImageURL = "https://thudaumot.binhduong.gov.vn/Portals/0/images/default.jpg";

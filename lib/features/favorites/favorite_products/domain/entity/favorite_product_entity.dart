@@ -6,9 +6,9 @@ class FavoriteProductEntity extends Equatable{
   final int ? id ;
   final String ? name ;
   final String ? subtitle ;
+  final bool ? isFavorite;
   final String? brand;
   final dynamic  price  ;
-  final bool ? isFavourite  ;
   final String ? description ;
   final List<dynamic> ? howItMade ;
   final Map<String, dynamic> ? imageList ;
@@ -25,9 +25,9 @@ class FavoriteProductEntity extends Equatable{
     this.id,
     this.name,
     this.subtitle,
+    this.isFavorite,
     this.brand,
     this.price,
-    this.isFavourite,
     this.description,
     this.howItMade,
     this.imageList,
@@ -45,9 +45,9 @@ class FavoriteProductEntity extends Equatable{
     id,
     name,
     subtitle,
+    isFavorite,
     brand,
     price,
-    isFavourite,
     description,
     howItMade,
     imageList,

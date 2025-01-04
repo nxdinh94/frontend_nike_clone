@@ -1,8 +1,5 @@
 import 'package:fe_nike/core/common/item_horizontal_scroll.dart';
-import 'package:fe_nike/core/constants/colors.dart';
-import 'package:fe_nike/core/constants/font_size.dart';
 import 'package:fe_nike/core/constants/padding.dart';
-import 'package:fe_nike/features/home/products/domain/entites/products.dart';
 import 'package:fe_nike/features/home/products/presentation/bloc/product_bloc.dart';
 import 'package:fe_nike/features/profile/me/presentation/bloc/me_states.dart';
 import 'package:fe_nike/helper/custom_navigation_helper.dart';
@@ -14,7 +11,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-
 import '../features/home/products/presentation/bloc/product_state.dart';
 import '../features/profile/me/presentation/bloc/me_bloc.dart';
 
@@ -109,7 +105,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
         Padding(
-          padding: EdgeInsets.only(left: 24.0, bottom: 24),
+          padding: const EdgeInsets.only(left: 24.0, bottom: 24),
           child: Text('Recommended products', style: Theme.of(context).textTheme.labelLarge),
         ),
         SingleChildScrollView(

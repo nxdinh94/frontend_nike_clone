@@ -1,6 +1,6 @@
 import 'package:fe_nike/features/authentication/presentation/bloc/authentication_bloc.dart';
-import 'package:fe_nike/features/favorites/favorite_products/presentation/bloc/bloc.dart';
-import 'package:fe_nike/features/favorites/favorite_products/presentation/bloc/event.dart';
+import 'package:fe_nike/features/favorites/favorite_products/presentation/bloc/get_favorite_products/bloc.dart';
+import 'package:fe_nike/features/favorites/favorite_products/presentation/bloc/get_favorite_products/event.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

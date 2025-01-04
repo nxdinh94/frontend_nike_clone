@@ -8,9 +8,9 @@ class FavoriteProductModel extends FavoriteProductEntity{
     super.id,
     super.name,
     super.subtitle,
+    super.isFavorite,
     super.brand,
     super.price,
-    super.isFavourite,
     super.description,
     super.howItMade,
     super.imageList,
@@ -29,8 +29,8 @@ class FavoriteProductModel extends FavoriteProductEntity{
       name: map['name'] ?? "",
       subtitle: map['subtitle'] ?? "",
       brand: map['brand'] ?? "",
+      isFavorite: map['isFavorite'] ?? true,
       price: map['price'] ?? 0,
-      isFavourite: map['isFavourite'] ?? false,
       description: map['description'] ?? "",
       howItMade: map['howItMade'] ?? [''], // Cast to List<String>
       imageList: map['image'] ?? [''], // Cast to List<String>
@@ -50,8 +50,8 @@ class FavoriteProductModel extends FavoriteProductEntity{
       name: entity.name,
       subtitle: entity.subtitle,
       brand: entity.brand,
+      isFavorite: entity.isFavorite,
       price: entity.price,
-      isFavourite: entity.isFavourite,
       description: entity.description,
       howItMade: entity.howItMade, // Cast to List<String>
       imageList: entity.imageList, // Cast to List<String>

@@ -100,7 +100,7 @@ class CustomNavigationHelper {
               GoRoute(
                   path: homeProductDetailPath,
                   pageBuilder: (context, GoRouterState state){
-                    ProductEntity product = state.extra as ProductEntity;
+                    dynamic product = state.extra ;
                     return getPage(
                         child: HomeProductDetail(
                           productEntity: product,

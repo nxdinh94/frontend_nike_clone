@@ -9,7 +9,6 @@ class ProductModel extends ProductEntity{
     super.subtitle,
     super.brand,
     super.price,
-    super.isFavourite,
     super.description,
     super.howItMade,
     super.imageList,
@@ -29,7 +28,6 @@ class ProductModel extends ProductEntity{
       subtitle: map['subtitle'] ?? "",
       brand: map['brand'] ?? "",
       price: map['price'] ?? 0,
-      isFavourite: map['isFavourite'] ?? false,
       description: map['description'] ?? "",
       howItMade: map['howItMade'] ?? [''], // Cast to List<String>
       imageList: map['image'] ?? [''], // Cast to List<String>
@@ -50,7 +48,6 @@ class ProductModel extends ProductEntity{
       subtitle: entity.subtitle,
       brand: entity.brand,
       price: entity.price,
-      isFavourite: entity.isFavourite,
       description: entity.description,
       howItMade: entity.howItMade, // Cast to List<String>
       imageList: entity.imageList, // Cast to List<String>

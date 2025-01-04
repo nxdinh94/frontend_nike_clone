@@ -1,8 +1,8 @@
 import 'package:equatable/equatable.dart';
 
-class ChangeFavoriteEntity extends Equatable{
+class ChangeFavoriteStateEntity extends Equatable{
   final bool isFavorite;
-  const ChangeFavoriteEntity({required this.isFavorite});
+  const ChangeFavoriteStateEntity({required this.isFavorite});
 
   @override
   List<Object?> get props => [isFavorite];

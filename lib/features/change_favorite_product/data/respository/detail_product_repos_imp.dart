@@ -3,19 +3,19 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:fe_nike/core/resources/data_state.dart';
-import 'package:fe_nike/features/product_detail/data/data_sources/detail_product_service.dart';
-import 'package:fe_nike/features/product_detail/domain/entities/change_favorite_entity.dart';
-import 'package:fe_nike/features/product_detail/domain/respository/detail_product_repos.dart';
+import 'package:fe_nike/features/change_favorite_product/data/data_sources/change_favorite_state_service.dart';
+import 'package:fe_nike/features/change_favorite_product/domain/entities/change_favorite_state_entity.dart';
+import 'package:fe_nike/features/change_favorite_product/domain/repository/detail_product_repos.dart';
 
-class DetailProductRepoImp extends DetailProductRepository{
+class ChangeFavoriteStateRepoImp extends ChangeFavoriteStateRepository{
 
-  final DetailProductService _detailProductService;
-  DetailProductRepoImp(this._detailProductService);
+  final ChangeFavoriteStateService _changeFavoriteStateService;
+  ChangeFavoriteStateRepoImp(this._changeFavoriteStateService);
 
   @override
-  Future<DataState<ChangeFavoriteEntity>> changeFavorite(String productId)async {
+  Future<DataState<ChangeFavoriteStateEntity>> changeFavorite(String productId)async {
     try{
-      final httpResponse = await _detailProductService.changeFavorite(productId);
+      final httpResponse = await _changeFavoriteStateService.changeFavorite(productId);
 
       if(httpResponse.response.statusCode == HttpStatus.ok){
         return DataSuccess(httpResponse.data);
@@ -35,9 +35,9 @@ class DetailProductRepoImp extends DetailProductRepository{
   }
 
   @override
-  Future<DataState<ChangeFavoriteEntity>> getIsFavorite(String productId) async {
+  Future<DataState<ChangeFavoriteStateEntity>> getIsFavorite(String productId) async {
     try{
-      final httpResponse = await _detailProductService.getFavorite(productId);
+      final httpResponse = await _changeFavoriteStateService.getFavorite(productId);
 
       if(httpResponse.response.statusCode == HttpStatus.ok){
         return DataSuccess(httpResponse.data);

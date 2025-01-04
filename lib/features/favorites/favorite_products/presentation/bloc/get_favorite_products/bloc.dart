@@ -2,8 +2,8 @@
 
 import 'package:fe_nike/core/resources/data_state.dart';
 import 'package:fe_nike/features/favorites/favorite_products/domain/usecase/get_favorite_product_usecases.dart';
-import 'package:fe_nike/features/favorites/favorite_products/presentation/bloc/event.dart';
-import 'package:fe_nike/features/favorites/favorite_products/presentation/bloc/state.dart';
+import 'package:fe_nike/features/favorites/favorite_products/presentation/bloc/get_favorite_products/event.dart';
+import 'package:fe_nike/features/favorites/favorite_products/presentation/bloc/get_favorite_products/state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class FavoriteProductBloc extends Bloc<FavoriteProductEvent, FavoriteProductState>{

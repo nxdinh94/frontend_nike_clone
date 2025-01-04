@@ -6,22 +6,22 @@ import 'package:fe_nike/features/authentication/domain/usecases/login.dart';
 import 'package:fe_nike/features/authentication/domain/usecases/logout.dart';
 import 'package:fe_nike/features/authentication/domain/usecases/register.dart';
 import 'package:fe_nike/features/authentication/presentation/bloc/authentication_bloc.dart';
+import 'package:fe_nike/features/change_favorite_product/data/data_sources/change_favorite_state_service.dart';
+import 'package:fe_nike/features/change_favorite_product/data/respository/detail_product_repos_imp.dart';
+import 'package:fe_nike/features/change_favorite_product/domain/repository/detail_product_repos.dart';
+import 'package:fe_nike/features/change_favorite_product/domain/use_cases/change_favorite_state_usecase.dart';
+import 'package:fe_nike/features/change_favorite_product/domain/use_cases/get_favorite_state_usecase.dart';
+import 'package:fe_nike/features/change_favorite_product/presentation/bloc/bloc.dart';
 import 'package:fe_nike/features/favorites/favorite_products/data/data_sources/favorite_product_services.dart';
 import 'package:fe_nike/features/favorites/favorite_products/data/repository/favorite_product_repo_imp.dart';
 import 'package:fe_nike/features/favorites/favorite_products/domain/repository/favorite_product_repo.dart';
 import 'package:fe_nike/features/favorites/favorite_products/domain/usecase/get_favorite_product_usecases.dart';
-import 'package:fe_nike/features/favorites/favorite_products/presentation/bloc/bloc.dart';
+import 'package:fe_nike/features/favorites/favorite_products/presentation/bloc/get_favorite_products/bloc.dart';
 import 'package:fe_nike/features/home/products/data/data_sources/product_services.dart';
 import 'package:fe_nike/features/home/products/data/reponsitory/product_repository_imp.dart';
 import 'package:fe_nike/features/home/products/domain/reponsitory/product_repository.dart';
 import 'package:fe_nike/features/home/products/domain/usecases/get_product.dart';
 import 'package:fe_nike/features/home/products/presentation/bloc/product_bloc.dart';
-import 'package:fe_nike/features/product_detail/data/data_sources/detail_product_service.dart';
-import 'package:fe_nike/features/product_detail/data/respository/detail_product_repos_imp.dart';
-import 'package:fe_nike/features/product_detail/domain/respository/detail_product_repos.dart';
-import 'package:fe_nike/features/product_detail/domain/usecases/change_favorite_usecase.dart';
-import 'package:fe_nike/features/product_detail/domain/usecases/get_favorite_usecase.dart';
-import 'package:fe_nike/features/product_detail/presentation/bloc/change_favorite/bloc.dart';
 import 'package:fe_nike/features/profile/me/data/data_sources/me_services.dart';
 import 'package:fe_nike/features/profile/me/data/responsitory/me_repository_imp.dart';
 import 'package:fe_nike/features/profile/me/domain/responsitory/me_reponsitory.dart';
@@ -63,11 +63,11 @@ Future<void> setupLocator ()async{
 
   //detail product bloc
 
-  locator.registerSingleton<DetailProductService>(DetailProductService(locator()));
-  locator.registerSingleton<DetailProductRepository>(DetailProductRepoImp(locator()));
-  locator.registerSingleton<ChangeFavoriteUseCase>(ChangeFavoriteUseCase(locator()));
-  locator.registerSingleton<GetFavoriteUsecase>(GetFavoriteUsecase(locator()));
-  locator.registerSingleton<GetFavoriteBloc>(GetFavoriteBloc(locator(), locator()));
+  locator.registerSingleton<ChangeFavoriteStateService>(ChangeFavoriteStateService(locator()));
+  locator.registerSingleton<ChangeFavoriteStateRepository>(ChangeFavoriteStateRepoImp(locator()));
+  locator.registerSingleton<ChangeFavoriteStateUseCase>(ChangeFavoriteStateUseCase(locator()));
+  locator.registerSingleton<GetFavoriteStateUseCase>(GetFavoriteStateUseCase(locator()));
+  locator.registerSingleton<GetFavoriteStateBloc>(GetFavoriteStateBloc(locator(), locator()));
 
   // Get favorite Product
   locator.registerSingleton<FavoriteProductServices>(FavoriteProductServices(locator()));

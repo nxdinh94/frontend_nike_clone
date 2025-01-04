@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'detail_product_service.dart';
+part of 'change_favorite_state_service.dart';
 
 // **************************************************************************
 // RetrofitGenerator
@@ -8,8 +8,8 @@ part of 'detail_product_service.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element
 
-class _DetailProductService implements DetailProductService {
-  _DetailProductService(
+class _ChangeFavoriteStateService implements ChangeFavoriteStateService {
+  _ChangeFavoriteStateService(
     this._dio, {
     this.baseUrl,
     this.errorLogger,
@@ -24,32 +24,33 @@ class _DetailProductService implements DetailProductService {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<HttpResponse<ChangeFavoriteModel>> changeFavorite(
+  Future<HttpResponse<ChangeFavoriteStateModel>> changeFavorite(
       String productId) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<ChangeFavoriteModel>>(Options(
+    final _options =
+        _setStreamType<HttpResponse<ChangeFavoriteStateModel>>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
     )
-        .compose(
-          _dio.options,
-          '/users/favorite/${productId}',
-          queryParameters: queryParameters,
-          data: _data,
-        )
-        .copyWith(
-            baseUrl: _combineBaseUrls(
-          _dio.options.baseUrl,
-          baseUrl,
-        )));
+            .compose(
+              _dio.options,
+              '/users/favorite/${productId}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            )));
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late ChangeFavoriteModel _value;
+    late ChangeFavoriteStateModel _value;
     try {
-      _value = ChangeFavoriteModel.fromJson(_result.data!);
+      _value = ChangeFavoriteStateModel.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;
@@ -59,32 +60,33 @@ class _DetailProductService implements DetailProductService {
   }
 
   @override
-  Future<HttpResponse<ChangeFavoriteModel>> getFavorite(
+  Future<HttpResponse<ChangeFavoriteStateModel>> getFavorite(
       String productId) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<ChangeFavoriteModel>>(Options(
+    final _options =
+        _setStreamType<HttpResponse<ChangeFavoriteStateModel>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
-        .compose(
-          _dio.options,
-          '/users/favorite/${productId}',
-          queryParameters: queryParameters,
-          data: _data,
-        )
-        .copyWith(
-            baseUrl: _combineBaseUrls(
-          _dio.options.baseUrl,
-          baseUrl,
-        )));
+            .compose(
+              _dio.options,
+              '/users/favorite/${productId}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            )));
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late ChangeFavoriteModel _value;
+    late ChangeFavoriteStateModel _value;
     try {
-      _value = ChangeFavoriteModel.fromJson(_result.data!);
+      _value = ChangeFavoriteStateModel.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;

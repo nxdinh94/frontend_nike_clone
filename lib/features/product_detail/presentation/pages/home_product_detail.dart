@@ -1,10 +1,8 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:fe_nike/core/common/custom_back_page_button.dart';
-import 'package:fe_nike/features/authentication/presentation/bloc/authentication_bloc.dart';
-import 'package:fe_nike/features/home/products/domain/entites/products.dart';
-import 'package:fe_nike/features/product_detail/presentation/bloc/change_favorite/bloc.dart';
-import 'package:fe_nike/features/product_detail/presentation/bloc/change_favorite/event.dart';
-import 'package:fe_nike/features/product_detail/presentation/bloc/change_favorite/state.dart';
+import 'package:fe_nike/features/change_favorite_product/presentation/bloc/bloc.dart';
+import 'package:fe_nike/features/change_favorite_product/presentation/bloc/event.dart';
+import 'package:fe_nike/features/change_favorite_product/presentation/bloc/state.dart';
 import 'package:fe_nike/features/product_detail/presentation/widgets/bullet_text.dart';
 import 'package:fe_nike/features/product_detail/presentation/widgets/image_category.dart';
 import 'package:flutter/cupertino.dart';
@@ -14,7 +12,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeProductDetail extends StatefulWidget {
   const HomeProductDetail({super.key, required this.productEntity});
-  final ProductEntity productEntity;
+  // Dynamic in order to adapt productEntity & favoriteProductEntity
+  final dynamic productEntity;
 
   @override
   State<HomeProductDetail> createState() => _HomeProductDetailState();
@@ -32,7 +31,7 @@ class _HomeProductDetailState extends State<HomeProductDetail> {
   @override
   void initState() {
 
-    context.read<GetFavoriteBloc>().add(GetFavorite(productId: widget.productEntity.id.toString()));
+    context.read<GetFavoriteStateBloc>().add(GetFavorite(productId: widget.productEntity.id.toString()));
 
     // List of color keys
     totalColorOfProduct = widget.productEntity.imageList?.keys.toList() as List<String>;
@@ -42,7 +41,6 @@ class _HomeProductDetailState extends State<HomeProductDetail> {
     initialListImage = widget.productEntity.imageList?[totalColorOfProduct[0]];
 
     colorShow = initialListImage[0]['colorShow'];
-    isFavorite = widget.productEntity.isFavourite!;
     currentIndexImage = 0;
     selectedListOfImage = List.generate(totalColorOfProductLength, (index){
       return {
@@ -161,11 +159,11 @@ class _HomeProductDetailState extends State<HomeProductDetail> {
                   Row(
                     children: [
                       Expanded(
-                        child: BlocBuilder<GetFavoriteBloc, GetFavoriteState>(
+                        child: BlocBuilder<GetFavoriteStateBloc, GetFavoriteState>(
                             builder: (context, state){
                               return OutlinedButton(
                                 onPressed: (){
-                                  context.read<GetFavoriteBloc>().add(ChangeFavorite(productId: widget.productEntity.id.toString()));
+                                  context.read<GetFavoriteStateBloc>().add(ChangeFavoriteState(productId: widget.productEntity.id.toString()));
                                 },
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -196,11 +194,11 @@ class _HomeProductDetailState extends State<HomeProductDetail> {
                   Row(
                     children: [
                       Expanded(
-                        child: BlocBuilder<GetFavoriteBloc, GetFavoriteState>(
+                        child: BlocBuilder<GetFavoriteStateBloc, GetFavoriteState>(
                           builder: (context, state){
                             return OutlinedButton(
                               onPressed: (){
-                                context.read<GetFavoriteBloc>().add(ChangeFavorite(productId: widget.productEntity.id.toString()));
+                                context.read<GetFavoriteStateBloc>().add(ChangeFavoriteState(productId: widget.productEntity.id.toString()));
                               },
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,

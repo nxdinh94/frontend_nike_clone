@@ -8,7 +8,6 @@ class ProductEntity extends Equatable{
   final String ? subtitle ;
   final String? brand;
   final dynamic  price  ;
-  final bool ? isFavourite  ;
   final String ? description ;
   final List<dynamic> ? howItMade ;
   final Map<String, dynamic> ? imageList ;
@@ -27,7 +26,6 @@ class ProductEntity extends Equatable{
     this.subtitle,
     this.brand,
     this.price,
-    this.isFavourite,
     this.description,
     this.howItMade,
     this.imageList,
@@ -47,7 +45,6 @@ class ProductEntity extends Equatable{
     subtitle,
     brand,
     price,
-    isFavourite,
     description,
     howItMade,
     imageList,
