@@ -78,7 +78,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                       return FavoriteProductItems(
                         voidCallback: () {
                           if (isEditFavoriteProducts) {
-                            context.read<GetFavoriteStateBloc>().add(
+                            context.read<ChangeFavoriteStateBloc>().add(
                               ChangeFavoriteState(productId: item.id.toString()),
                             );
                           } else {

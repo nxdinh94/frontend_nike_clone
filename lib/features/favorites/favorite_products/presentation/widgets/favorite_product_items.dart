@@ -33,7 +33,7 @@ class _FavoriteProductItemsState extends State<FavoriteProductItems> {
 
   @override
   void initState() {
-    context.read<GetFavoriteStateBloc>().add(GetFavorite(productId: widget.favoriteProduct.id.toString()));
+    context.read<ChangeFavoriteStateBloc>().add(GetFavorite(productId: widget.favoriteProduct.id.toString()));
 
     thumbnailUrl = widget.favoriteProduct.thumbnail ?? defaultImageURL;
     super.initState();

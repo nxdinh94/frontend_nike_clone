@@ -54,7 +54,7 @@ class _AuthServices implements AuthServices {
     this.baseUrl,
     this.errorLogger,
   }) {
-    baseUrl ??= 'http://192.168.2.8:3222/';
+    baseUrl ??= 'http://192.168.2.11:3222/';
   }
 
   final Dio _dio;

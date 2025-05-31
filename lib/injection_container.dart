@@ -67,7 +67,7 @@ Future<void> setupLocator ()async{
   locator.registerSingleton<ChangeFavoriteStateRepository>(ChangeFavoriteStateRepoImp(locator()));
   locator.registerSingleton<ChangeFavoriteStateUseCase>(ChangeFavoriteStateUseCase(locator()));
   locator.registerSingleton<GetFavoriteStateUseCase>(GetFavoriteStateUseCase(locator()));
-  locator.registerSingleton<GetFavoriteStateBloc>(GetFavoriteStateBloc(locator(), locator()));
+  locator.registerSingleton<ChangeFavoriteStateBloc>(ChangeFavoriteStateBloc(locator(), locator()));
 
   // Get favorite Product
   locator.registerSingleton<FavoriteProductServices>(FavoriteProductServices(locator()));

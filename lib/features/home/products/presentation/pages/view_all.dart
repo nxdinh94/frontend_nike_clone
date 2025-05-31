@@ -1,8 +1,10 @@
 import 'package:fe_nike/core/constants/font_size.dart';
 import 'package:fe_nike/core/constants/padding.dart';
 import 'package:fe_nike/features/authentication/presentation/bloc/authentication_bloc.dart';
+import 'package:fe_nike/features/change_favorite_product/presentation/bloc/bloc.dart';
 import 'package:fe_nike/features/home/products/presentation/bloc/product_bloc.dart';
 import 'package:fe_nike/features/home/products/presentation/bloc/product_state.dart';
+import 'package:fe_nike/injection_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -19,6 +21,7 @@ class _ViewAllState extends State<ViewAll> {
 
   @override
   void initState() {
+
     super.initState();
   }
 
@@ -51,18 +54,19 @@ class _ViewAllState extends State<ViewAll> {
             return const Text('Loading');
           }
 
-          return Container(
-            child: GridView.count(
-              crossAxisCount: 2,
-              // padding: EdgeInsets.all(12),
-              childAspectRatio: 2/3,
-              crossAxisSpacing: 6,
-              mainAxisSpacing: 6,
-              children: state.product!.map((item){
-                return ViewAllItems(product: item);
-              }).toList(),
-
-            ),
+          return GridView.count(
+            crossAxisCount: 2,
+            childAspectRatio: 2 / 3,
+            crossAxisSpacing: 6,
+            mainAxisSpacing: 6,
+            children: state.product!.map((item) {
+              // Create a new instance of the bloc for each item
+              final changeFavoriteBloc = locator<ChangeFavoriteStateBloc>();
+              return BlocProvider<ChangeFavoriteStateBloc>(
+                create: (context) => changeFavoriteBloc,
+                child: ViewAllItems(product: item, key: ValueKey(item.id),),
+              );
+            }).toList(),
           );
         }
       ),

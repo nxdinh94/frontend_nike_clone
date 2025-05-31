@@ -31,7 +31,7 @@ class _HomeProductDetailState extends State<HomeProductDetail> {
   @override
   void initState() {
 
-    context.read<GetFavoriteStateBloc>().add(GetFavorite(productId: widget.productEntity.id.toString()));
+    context.read<ChangeFavoriteStateBloc>().add(GetFavorite(productId: widget.productEntity.id.toString()));
 
     // List of color keys
     totalColorOfProduct = widget.productEntity.imageList?.keys.toList() as List<String>;
@@ -159,11 +159,11 @@ class _HomeProductDetailState extends State<HomeProductDetail> {
                   Row(
                     children: [
                       Expanded(
-                        child: BlocBuilder<GetFavoriteStateBloc, GetFavoriteState>(
+                        child: BlocBuilder<ChangeFavoriteStateBloc, FavoriteState>(
                             builder: (context, state){
                               return OutlinedButton(
                                 onPressed: (){
-                                  context.read<GetFavoriteStateBloc>().add(ChangeFavoriteState(productId: widget.productEntity.id.toString()));
+                                  context.read<ChangeFavoriteStateBloc>().add(ChangeFavoriteState(productId: widget.productEntity.id.toString()));
                                 },
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -194,11 +194,11 @@ class _HomeProductDetailState extends State<HomeProductDetail> {
                   Row(
                     children: [
                       Expanded(
-                        child: BlocBuilder<GetFavoriteStateBloc, GetFavoriteState>(
+                        child: BlocBuilder<ChangeFavoriteStateBloc, FavoriteState>(
                           builder: (context, state){
                             return OutlinedButton(
                               onPressed: (){
-                                context.read<GetFavoriteStateBloc>().add(ChangeFavoriteState(productId: widget.productEntity.id.toString()));
+                                context.read<ChangeFavoriteStateBloc>().add(ChangeFavoriteState(productId: widget.productEntity.id.toString()));
                               },
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,

@@ -91,8 +91,8 @@ class _MyAppState extends State<MyApp> {
         BlocProvider<MeBloc>(
           create: (BuildContext context) => locator<MeBloc>()..add(const GetMeEvent()),
         ),
-        BlocProvider<GetFavoriteStateBloc>(
-            create: (BuildContext context) => locator<GetFavoriteStateBloc>()
+        BlocProvider<ChangeFavoriteStateBloc>(
+            create: (BuildContext context) => locator<ChangeFavoriteStateBloc>()
         ),
         BlocProvider<FavoriteProductBloc>(
             create: (BuildContext context) => locator<FavoriteProductBloc>()..add(const GetFavoriteProduct())
